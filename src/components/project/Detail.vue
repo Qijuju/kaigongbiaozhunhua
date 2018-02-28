@@ -2,7 +2,7 @@
   <div class="search">
     <van-nav-bar
       v-bind:title='detailData.xmmc' fixed
-      left-text="返回"
+      left-text="返回222"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
