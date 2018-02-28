@@ -10,16 +10,17 @@
         </div>
       </div>
 
-      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
+      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myUnitProjectScroller">
         <div class="box">
-          <div class="innerBox clearfix">
+          <div class="innerBox clearfix" v-for="list in lists">
             <div class="time">
-              <p>2018-01-30</p>
+              <p>{{list.date}}</p>
             </div>
-            <div class="item" @click="goDetail('单位工程测试数据title')">
-              <p>单位工程</p>
-              <p>项目名称</p>
-              <p>所属标段</p>
+            <div class="item" v-for="item in list.data" @click="goDetail(item.dwgcId)">
+              <p>{{item.dwgc}}</p>
+              <p>{{item.xmmc}}</p>
+              <p>{{item.bdgc}}</p>
+              <p hidden>{{storeHtbdSearchCondId}}</p>
             </div>
           </div>
         </div>
@@ -42,9 +43,12 @@
     },
     data() {
       return {
-        searchTab:false,
-        baseuserId:'235739', // 人员id（基础平台的）
+        baseuserId:102300, // 人员id（基础平台的）
+        type:1,
         page:1, // 当前页码
+
+        searchTab:false,
+
         pageSize:10, // 每页显示的数据
         noData:'',
         lists:[],
@@ -74,18 +78,21 @@
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url = getUrl(xmjgglId,xmmcId,htbdId,vm.baseuserId,vm.page);
+        let url ='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url)
           .then(response => {
             this.lists = response.data.data;
+
+            console.log("单位工程列表首页数据："+JSON.stringify(this.lists));
+
             let thisCount = response.data.thisCount; // 当前请求的数据的条数
             if(thisCount < vm.pageSize) {
               vm.noData = "没有更多数据"
             }else {
               vm.noData ='';
             }
-            console.log("请求的数据llalllalall："+JSON.stringify(response.data));
+
           }).catch(err => {
           console.error(err.message)
         })
@@ -96,7 +103,7 @@
         let vm= this;
         vm.getList('','',''); // 调用请求首页数据的方法
         setTimeout(() => {
-          this.$refs.myscroller.resize(); // 加载图标1.5s后消失
+          this.$refs.myUnitProjectScroller.resize(); // 加载图标1.5s后消失
         }, 1500)
 
         done() // call done
@@ -105,15 +112,13 @@
       infinite(done) {
         if(this.noData) {
           setTimeout(()=>{
-            this.$refs.myscroller.finishInfinite(2);
-          })
+            this.$refs.myUnitProjectScroller.finishInfinite(2);
+          });
           return;
         }
-
         let vm = this;
         vm.page++;
-        console.log("我的页码为：" +vm.page);
-        let url = getUrl(vm.xmjgglSearchCondId , vm.xmmcSearchCondId,vm.htbdSearchCondId,vm.baseuserId,vm.page);
+        let url ='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
@@ -121,31 +126,9 @@
 
           setTimeout(() => {
             if(thisCount < vm.pageSize) {
-              vm.noData = "没有更多数据"
+              vm.noData = "没有更多数据了"
             }
-            // 将新的数据源追加到数据源列表中
-            // 如何新数据的第一条的日期===老数据的最后一条数据的日期，删除新数据的第一条数据，同时将删除的数据添加到老数据的最后一条中，反之直接追加数据
-              if (vm.lists[vm.lists.length-1].date === newData[0].date){
-                vm.lists[vm.lists.length-1].data = vm.lists[vm.lists.length-1].data.concat(newData[0].data);
-                if (newData.length-1>0){
-                  newData.splice(0,1);
-                  for(var i=1;i<newData.length;i++){
-                    let obj={};
-                    obj["data"] = newData[i].data;
-                    obj["date"] = newData[i].date;
-                    vm.lists.push(obj);
-                  }
-                }
-              }else { //
-                for(var i=0;i<newData.length;i++){
-                  // 如何新数据的第一条的日期===老数据的最后一条数据的日期，删除新数据的第一条数据，同时将删除的数据添加到老数据的最后一条中
-                  let obj={};
-                  obj["data"] = newData[i].data;
-                  obj["date"] = newData[i].date;
-                  vm.lists.push(obj);
-                }
-              }
-            vm.$refs.myscroller.resize();
+            vm.$refs.myUnitProjectScroller.resize();
             done()
           }, 1000);
         }, (response) => {
@@ -163,65 +146,14 @@
         this.searchTab = true;
 
       },
-      // 跳转详情页面
-      goDetail(clickDWGC){
-        console.log("点击的单位工程是："+ clickDWGC);
-        this.$store.commit('setUnitProjectInfo',{clickDWGC:clickDWGC});
+      // 点击进入详情页面
+      goDetail(dwgcId){
+        console.log("点击的单位工程是："+ dwgcId);
+        this.$store.commit('setUnitProjectInfo',{dwgcId:dwgcId});
         this.$router.push({path:'/unitProject/detail'});
       }
     }
   }
-
-  // 定义函数，返回请求的 url
-  function getUrl(xmjgglId,xmmcId,htbdId,baseuserId,page) {
-    let url='';
-    // http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd=109&baseuserid=235739&page=1;
-    // 全部非空
-    if (xmjgglId !== ''&& xmmcId !== ''&& htbdId !== ''){
-      console.log("全部非空");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&bd='+htbdId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 一个空值
-    if(xmjgglId === ''&& xmmcId !== ''&& htbdId !== ''){
-      console.log("一个空值 xmjgglId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&bd='+htbdId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    if (xmjgglId !== ''&& xmmcId === ''&& htbdId !== ''){
-      console.log("一个空值 xmmcId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd='+htbdId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    if (xmjgglId !== ''&& xmmcId !== ''&& htbdId === ''){
-      console.log("一个空值 htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 两个空值
-    if (xmjgglId === ''&& xmmcId === ''&& htbdId !== ''){
-      console.log("两个空值 xmjgglId +xmmcId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd='+htbdId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-    if (xmjgglId === ''&& xmmcId !== ''&& htbdId === ''){
-      console.log("两个空值 xmjgglId +htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-    if (xmjgglId !== ''&& xmmcId === ''&& htbdId === ''){
-      console.log("两个空值 xmmcId +htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 全部空值
-    if (xmjgglId === ''&& xmmcId === ''&& htbdId === ''){
-      console.log("全部空值");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    return url;
-  }
-
-
 
 </script>
 

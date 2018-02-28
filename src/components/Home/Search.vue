@@ -1,11 +1,9 @@
 <template>
   <div class="search">
     <van-nav-bar
-      v-bind:title='storeProName' fixed
-      left-text="<"
-      right-text="×"
+      v-bind:title="'搜索页面'" fixed
+      left-text="返回"
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     >
     </van-nav-bar>
 
@@ -25,11 +23,8 @@
     },
     methods:{
       onClickLeft() {
-        history.back();
-      },
-      onClickRight() {
+        this.$router.push({path:'/Home'});
       }
-
     }
   }
 </script>

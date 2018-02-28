@@ -3,13 +3,13 @@
     <!--storeProName-->
     <van-nav-bar
       v-bind:title='detailNextData.bdmc' fixed
-      left-text="<"
+      left-text="返回"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
     <div class="content">
       <button id="prePage" @click="onClickLeft()">上一页</button>
-      <p id="ystk">验收条款-标段-{{}}</p>
+      <p id="ystk">验收条款</p>
       <van-row>
         <van-col span="24">
           施工单位项目部完成组建，主要管理人员兑现投标承诺已到位；监理单位监理站驻地完成建设，主要监理人员已到位
@@ -191,6 +191,7 @@
           </div>
         </van-col>
       </van-row>
+      <p hidden>{{storeId}}</p>
     </div>
   </div>
 </template>
@@ -202,35 +203,31 @@
     name: "detailNext",
     data() {
       return {
-        checked:false,
-        proName:'',
-        bdid:'3',
-        detailNextData:[]
+        type:2, // 移动端
+        id:-1, // 标段id
+        detailNextData:{}, // 详情数据
+        popupTxt:'', // 弹出层显示内容
+        popupVisible:false // 弹出层可视否
       }
     },
     computed:{
+      storeId(){  // 时时获取存储到单位工程的id
+        this.id  = this.$store.getters.sectionInfo.id;
+        this.getDetailData();
+        return this.dwgcId;
+      },
     },
     mounted:function () {
       this.setLineHeight(); // 设置行高
-      this.getDetailNextData(); // 获取详情数据
-
+      this.getDetailData(); // 获取详情数据
     },
     methods:{
-      // 返回上一页
-      onClickLeft(){
-        this.$router.push({path:'/section/detail'});
-      },
-//      goPrePage(){
-//        this.$router.push({path:'/section/detail'});
-//      },
-      // 根据标段id获取详情页数据
-      getDetailNextData(){
+      getDetailData(){    // 根据标段id获取详情页数据
         let vm = this;
-        let url = 'http://whjjgc.r93535.com/BdgckgbzhServlet?bdid='+this.bdid+'&type=2';
+        let url = 'http://whjjgc.r93535.com/BdgckgbzhServlet?bdid='+vm.id+'&type=2';
 
         axios.get(url).then(response => {
           vm.detailNextData = response.data[0];
-          console.log("详情页第二页数据：" +JSON.stringify(vm.detailNextData));
 
           vm.detailNextData.sgdwxmwczjsgsp = vm.detailNextData.sgdwxmwczjsgsp == '1'?true:false;
           vm.detailNextData.sgdwxmwczjjlsp = vm.detailNextData.sgdwxmwczjjlsp == '1'?true:false;
@@ -259,31 +256,24 @@
           vm.detailNextData.gqpxkssg = vm.detailNextData.gqpxkssg == '1'?true:false;
           vm.detailNextData.gqpxksjl = vm.detailNextData.gqpxksjl == '1'?true:false;
           vm.detailNextData.gqpxksxm = vm.detailNextData.gqpxksxm == '1'?true:false;
-
+          console.log("详情页第二页数据22：" +JSON.stringify(vm.detailNextData));
         }).catch(err => {
           console.error(err.message)
         })
-      },
-      // 数据处理，将状态值修改为false或true
-      changeState(param){
-        if(param === '1'){
-          return true
-        }else {
-          return false;
-        }
-
       },
       setLineHeight(){
         // 将按钮垂直居中显示
         for(var i=0;i<$('.van-row').length;i++){
           var l = $($('.van-row')[i]).height();
-          console.log("每行的高度为：" +l)
           $($('.switch')[i]).css({
             'marginTop':(l-33)/2+'px'
           })
         }
+      },
+      // 返回上一页
+      onClickLeft(){
+        this.$router.push({path:'/section/detail'});
       }
-
     }
   }
 

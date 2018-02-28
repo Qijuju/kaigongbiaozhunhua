@@ -2,7 +2,7 @@
   <div class="search">
     <van-nav-bar
       title="标段工程开工标准化"
-      left-text="取消"
+      left-text="返回"
       right-text="搜索"
       @click-left="onClickLeft"
       @click-right="onClickRight"
@@ -82,6 +82,9 @@
     name: "search",
     data() {
       return {
+
+        baseuserId:102300,
+
         xmgljgIsShow:false,// 项目管理机构选项是否显示
         xmmcIsShow:false, // 项目名称选项是否显示
         htbdIsShow:false, // 合同标段选项是否显示
@@ -145,7 +148,10 @@
         this.xmgljg = value;
         this.xmgljgId= this.xmgljgArr[index].id;
         this.xmgljgIsShow =false;
-        console.log(`项目管理机构当前值：${value}, 当前索引：${index}`);
+
+        // 将选中的项目管理机构的id存储起来
+        this.$store.commit('setSectionInfo',{xmjgglId:this.xmgljgArr[index].id});
+//        console.log(`项目管理机构当前值：${value}, 当前索引：${index},id:${this.xmgljgArr[index].id}`);
         // 根据选择的项目管理机构重新请求项目名称列表数据
         this.getXMMCData();
       },
@@ -185,12 +191,13 @@
         this.xmgljgIsShow = false;
         this.xmmcIsShow = false;
       },
-      // 调取接口数据:项目管理机构字典
+      //  项目管理机构字典
       getXMGLLGData(){
-        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid=223906';
+        let vm=this;
+        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid='+vm.baseuserid;
         axios.get(url)
           .then(response => {
-            this.xmgljgArr = response.data;
+            vm.xmgljgArr = response.data;
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].subcompanyname)
@@ -200,18 +207,17 @@
           console.error(err.message)
         })
       },
-      // 调取接口数据:项目名称字典
+      // 项目名称字典数据
       getXMMCData(){
-        let url='';
-        if(this.xmgljgId >= 0){
-          url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid=222412&gljg='+this.xmgljgId;
-        }else {
-          url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid=222412';
-        }
+        let vm=this;
+        console.log("获取项目字典数据的参数：机构id："+vm.xmgljgId);
+        let url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid='+vm.baseuserId+'&gljg='+this.xmgljgId;
+        console.log("获取项目字典请求的url："+url);
+
         axios.get(url)
           .then(response => {
-            this.xmmcArr = response.data;
-
+            vm.xmmcArr = response.data;
+            console.log("获取标段字典请求数据："+JSON.stringify(vm.xmmcArr));
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].xmmc)
@@ -222,29 +228,23 @@
           console.error(err.message)
         })
       },
-      // 调取接口数据:合同标段字典
+      //  合同标段字典
       getHTBDData(){
-        let url='';
-        if(this.xmgljgId >= 0 && this.xmmcId < 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmgljg='+this.xmgljgId+'&baseuserid=223906'
-        }else if (this.xmmcId >= 0 && this.xmgljgId < 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId +'&baseuserid=223906';
-        }else if ( this.xmgljgId >= 0 && this.xmmcId >= 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId+'&xmgljg='+this.xmgljgId +'&baseuserid=223906';
-        }else {
-          url='http://whjjgc.r93535.com/BiaoduanServlet?baseuserid=223906';
-        }
+        let vm=this;
+        console.log("获取标段字典数据的参数：项目id："+vm.xmmcId+",机构id："+vm.xmgljgId);
+        let url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId;
+        console.log("获取标段字典请求的url："+url);
 
         axios.get(url)
           .then(response => {
-            this.htbdArr = response.data;
+            vm.htbdArr = response.data;
+            console.log("获取标段字典请求数据："+JSON.stringify(vm.htbdArr));
 
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].bdmc)
             }
             this.htbdNameArr = temp;
-//            console.log("标段可选项：" +JSON.stringify(this.htbdNameArr));
           }).catch(err => {
           console.error(err.message)
         })

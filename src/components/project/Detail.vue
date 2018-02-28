@@ -1,128 +1,154 @@
 <template>
   <div class="search">
     <van-nav-bar
-      v-bind:title='routeProName' fixed
-      left-text="<"
+      v-bind:title='detailData.xmmc' fixed
+      left-text="返回"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
 
     <div class="content">
-      <button id="nextPage" @click="goNextPage(routeProName)">下一页</button>
+      <button id="nextPage" @click="goNextPage()">下一页</button>
       <van-row>
         <van-col span="8">项目名称</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.xmmc)'>{{detailData.xmmc}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">施工单位</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.sgdw)'>{{detailData.sgdw}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">监理名称</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.jldw)'>{{detailData.jldw}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">设计单位</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.sjdw)'>{{detailData.sjdw}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">项目基本情况</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.xmjbqk)'>{{detailData.xmjbqk}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">计划开工日期</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.jhkgrq)'>{{detailData.jhkgrq}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="24">项目管理机构自验结果</van-col>
       </van-row>
       <van-row>
-        <van-col span="24">自验结果</van-col>
+        <van-col span="24">
+          <span @click='popupClick(detailData.xmglzy)'>{{detailData.xmglzy}}</span>
+        </van-col>
       </van-row>
       <van-row>
         <van-col span="8">项目管理机构</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.zhb)'>{{detailData.zhb}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">日期</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.rqxmgl)'>{{detailData.rqxmgl}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="24">建设管理处验收意见</van-col>
       </van-row>
       <van-row>
-        <van-col span="24">验收意见</van-col>
+        <van-col span="24">
+          <span @click='popupClick(detailData.jscysyj)'>{{detailData.jscysyj}}</span>
+        </van-col>
       </van-row>
       <van-row>
         <van-col span="8">验收成员</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.yscy)'>{{detailData.yscy}}</span>
         </van-col>
       </van-row>
       <van-row>
         <van-col span="8">日期</van-col>
         <van-col span="16" >
-          <span @click='popupClick()'>{{}}</span>
+          <span @click='popupClick(detailData.rqjsc)'>{{detailData.rqjsc}}</span>
         </van-col>
       </van-row>
       <!--弹出层-->
       <mt-popup
         v-model="popupVisible"
         popup-transition="popup-fade">
-        <p>{{}}</p>
+        <p>{{popupTxt}}</p>
       </mt-popup>
+      <p hidden>{{storeXmId}}</p>
     </div>
 
   </div>
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: "search",
     data() {
       return {
+        type:1, // 第一页数据
+        xmid:-1,// 项目id
+        detailData:{},
+        popupTxt:'',
+
+
         proName:'',
-        popupTxt:'点击的内容',
+
         popupVisible:false
       }
     },
-    components:{
-    },
     computed:{
-      routeProName(){  // 时时获取项目的名称
-        this.proName  = this.$store.getters.projectInfo.proName;
-        return this.$store.getters.projectInfo.proName;
+      storeXmId(){  // 时时获取项目的名称
+        this.xmid  = this.$store.getters.projectInfo.xmid;
+        this.getDetailData();
+        return this.xmid;
       }
     },
+    mounted:function () {
+      this.getDetailData();
+    },
     methods:{
+      getDetailData(){
+        let vm = this;
+        let url='http://whjjgc.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
+        console.log("项目详情数据第一页数据的url："+url);
+        axios.get(url).then(response => {
+          console.log("项目详情第一页的数据："+JSON.stringify(response.data));
+          vm.detailData = response.data;
+
+        }).catch(err => {
+          console.error(err.message)
+        })
+      },
       // 返回首页调取方法
       onClickLeft(){
         this.$router.push({path:'/project'});
         console.log("取消事件");
       },
-      popupClick(){
+      popupClick(txt){
+        this.popupTxt =txt;
         this.popupVisible = true;
-        console.log("弹出层");
       },
-      goNextPage(proName){
-        console.log("点击下一页的传值项目名称："+proName);
-        this.$router.push({path:'/project/detailNext',query:{proName:proName}});
+      goNextPage(){
+        this.$router.push({path:'/project/detailNext'});
       }
     }
   }
@@ -182,6 +208,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .van-col.van-col-24 span{
+    display: inline-block;;
+    width:100%;
+    height:100%;
+    background: #fff;
   }
 
 

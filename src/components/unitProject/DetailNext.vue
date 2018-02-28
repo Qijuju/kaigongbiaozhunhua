@@ -1,21 +1,14 @@
 <template>
   <div class="detailNext">
-
-    <!--<van-nav-bar-->
-      <!--v-bind:title='storeUnitName' fixed-->
-      <!--left-text="<"-->
-      <!--@click-left="onClickLeft"-->
-    <!--&gt;-->
-    <!--</van-nav-bar>-->
     <van-nav-bar
-      v-bind:title="'单位工程详情第2页'" fixed
-      left-text="<"
+      v-bind:title='detailNextData.dwgcmc' fixed
+      left-text="返回"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
     <div class="content">
       <button id="prePage" @click="onClickLeft()">上一页</button>
-      <p id="ystk">验收条款-标段-{{unitName}}</p>
+      <p id="ystk">验收条款</p>
       <van-row>
         <van-col span="24">
           施工单位架子队按照批准的方案组建完成，管理人员已经到位，建立健全架子队各项管理制度，现场监理人员到位，专业配置、人员数量满足施工需要
@@ -25,19 +18,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgdwjzsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgdwjzsg" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgdwjzjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -51,19 +44,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.lsydsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.lsydjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.lsydjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -77,19 +70,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgtwchdsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgtwchdjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sgtwchdjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -103,19 +96,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled />
+            <van-switch v-model="detailNextData.tzzyrysg" disabled />
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.tzzyryjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.tzzyryjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -129,19 +122,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.wzcljcsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.wzcljcjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch ">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.wzcljcjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -155,19 +148,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.jxsbsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.jxsbjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled />
+            <van-switch v-model="detailNextData.jxsbjs" disabled />
           </div>
         </van-col>
       </van-row>
@@ -181,19 +174,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.gystsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.gystjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.gystjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -206,19 +199,19 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sysbhzsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled />
+            <van-switch v-model="detailNextData.sysbhzjl" disabled />
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.sysbhzjs" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -232,22 +225,24 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.yyxsgsg" disabled/>
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.yyxsgjl" disabled/>
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="checked" disabled/>
+            <van-switch v-model="detailNextData.yyxsgjs" disabled/>
           </div>
         </van-col>
       </van-row>
+
+      <p hidden>{{storeDwgcId}}</p>
 
 
     </div>
@@ -255,26 +250,25 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: "detailNext",
     data() {
       return {
+        type:2,
+        dwgcId:-1,
         checked:false,
-        unitName:''
+        unitName:'',
+        detailNextData:{}
       }
     },
     computed:{
-      storeUnitName(){  // 时时获取项目的名称
-        this.unitName  = this.$store.getters.unitProjectInfo.clickDWGC;
-        console.log("上一页接收的项目名称为:" + this.unitName);
-        return this.$store.getters.unitProjectInfo.clickDWGC;
-      }
-    },
-    methods:{
-      // 返回详情第一页
-      onClickLeft(){
-       this.$router.push({path:'/unitProject/detail'});
-      }
+      storeDwgcId(){  // 时时获取存储到单位工程的id
+        this.dwgcId  = this.$store.getters.unitProjectInfo.dwgcId;
+        this.getDetailData();
+        return this.dwgcId;
+      },
     },
     mounted:function () {
       // 将按钮垂直居中显示
@@ -284,6 +278,70 @@
         $($('.switch')[i]).css({
           'marginTop':(l-33)/2+'px'
         })
+      };
+
+      this.getDetailData();
+    },
+    methods:{
+      // 根据单位工程的id获取详情数据
+      getDetailData(){
+        let vm = this;
+        console.log("走进来了吗？"+vm.dwgcId);
+        let url = 'http://whjjgc.r93535.com/DwgckgbzhServlet?type='+vm.type+'&dwgcid='+vm.dwgcId;
+        console.log("获取单位工程第2页请求的url为："+ url);
+
+        axios.get(url).then(response => {
+          vm.detailNextData = response.data[0];
+          console.log("获取单位工程详情第2页的数据："+JSON.stringify(vm.detailNextData));
+
+          // 施工单位架子队
+          vm.detailNextData.sgdwjzsg = vm.detailNextData.sgdwjzsg == '1'?true:false;
+          vm.detailNextData.sgdwjzjl = vm.detailNextData.sgdwjzjl == '1'?true:false;
+          vm.detailNextData.sgdwjzjs = vm.detailNextData.sgdwjzjs == '1'?true:false;
+
+          // 临时用地
+          vm.detailNextData.lsydsg = vm.detailNextData.lsydsg == '1'?true:false;
+          vm.detailNextData.lsydjl = vm.detailNextData.lsydjl == '1'?true:false;
+          vm.detailNextData.lsydjs = vm.detailNextData.lsydjs == '1'?true:false;
+
+          // 施工图完成现场核对
+          vm.detailNextData.sgtwchdsg = vm.detailNextData.sgtwchdsg == '1'?true:false;
+          vm.detailNextData.sgtwchdjl = vm.detailNextData.sgtwchdjl == '1'?true:false;
+          vm.detailNextData.sgtwchdjs = vm.detailNextData.sgtwchdjs == '1'?true:false;
+          // 种作业人员
+          vm.detailNextData.tzzyrysg = vm.detailNextData.tzzyrysg == '1'?true:false;
+          vm.detailNextData.tzzyryjl = vm.detailNextData.tzzyryjl == '1'?true:false;
+          vm.detailNextData.tzzyryjs = vm.detailNextData.tzzyryjs == '1'?true:false;
+          // 物资材料已进场
+          vm.detailNextData.wzcljcsg = vm.detailNextData.wzcljcsg == '1'?true:false;
+          vm.detailNextData.wzcljcjl = vm.detailNextData.wzcljcjl == '1'?true:false;
+          vm.detailNextData.wzcljcjs = vm.detailNextData.wzcljcjs == '1'?true:false;
+          // 机械设备已履约进场
+          vm.detailNextData.jxsbsg = vm.detailNextData.jxsbsg == '1'?true:false;
+          vm.detailNextData.jxsbjl = vm.detailNextData.jxsbjl == '1'?true:false;
+          vm.detailNextData.jxsbjs = vm.detailNextData.jxsbjs == '1'?true:false;
+          // 工艺性试验
+          vm.detailNextData.gystsg = vm.detailNextData.gystsg == '1'?true:false;
+          vm.detailNextData.gystjl = vm.detailNextData.gystjl == '1'?true:false;
+          vm.detailNextData.gystjs = vm.detailNextData.gystjs == '1'?true:false;
+          // 试验室拌和站
+          vm.detailNextData.sysbhzsg = vm.detailNextData.sysbhzsg == '1'?true:false;
+          vm.detailNextData.sysbhzjl = vm.detailNextData.sysbhzjl == '1'?true:false;
+          vm.detailNextData.sysbhzjs = vm.detailNextData.sysbhzjs == '1'?true:false;
+          // 营业线施工
+          vm.detailNextData.yyxsgsg = vm.detailNextData.yyxsgsg == '1'?true:false;
+          vm.detailNextData.yyxsgjl = vm.detailNextData.yyxsgjl == '1'?true:false;
+          vm.detailNextData.yyxsgjs = vm.detailNextData.yyxsgjs == '1'?true:false;
+
+          console.log("获取单位工程详情第222页的数据："+JSON.stringify(vm.detailNextData));
+        }).catch(err => {
+          console.error(err.message)
+        })
+      },
+
+      // 返回详情第一页
+      onClickLeft(){
+       this.$router.push({path:'/unitProject/detail'});
       }
     }
   }

@@ -1,11 +1,9 @@
 <template>
   <div class="detailNext">
     <van-nav-bar
-      v-bind:title='returnProName'
-      left-text="取消"
-      right-text="搜索"
+      v-bind:title='detailNextData.xmmc'
+      left-text="返回"
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     >
     </van-nav-bar>
     <div class="content">
@@ -17,7 +15,7 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="checked" />
+            <van-switch v-model="detailNextData.zyglrypzjsc" disabled/>
           </div>
 
         </van-col>
@@ -28,7 +26,7 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="checked" />
+            <van-switch v-model="detailNextData.jcglzd" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -38,7 +36,7 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="checked" />
+            <van-switch v-model="detailNextData.zyjxsb" disabled />
           </div>
         </van-col>
       </van-row>
@@ -48,7 +46,7 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="checked" />
+            <van-switch v-model="detailNextData.zdxszbz" disabled />
           </div>
         </van-col>
       </van-row>
@@ -58,7 +56,7 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="checked" />
+            <van-switch v-model="detailNextData.dlgc" disabled/>
           </div>
         </van-col>
       </van-row>
@@ -69,12 +67,13 @@
         <van-col span="6">
           <div class="pSwitch">
             <div class="innerSwitch">
-              <van-switch v-model="checked" />
+              <van-switch v-model="detailNextData.shzc" disabled/>
             </div>
           </div>
         </van-col>
       </van-row>
 
+      <p hidden>{{storeXmId}}</p>
     </div>
 
 
@@ -82,43 +81,69 @@
 </template>
 
 <script>
+  import axios from 'axios';
+
   export default {
     name: "detailNext",
     data() {
       return {
+        type:2,
+        xmid:-1,
+        detailNextData:{}, // 详情数据
+        popupTxt:'', // 弹出层显示内容
+        popupVisible:false, // 弹出层可视否
+
         checked:false,
-        proName:''
       }
     },
     computed:{
-      returnProName(){  // 时时获取项目的名称
-        this.proName  = this.$store.getters.projectInfo.proName;
-        console.log("上一页接收的项目名称为:" + this.proName);
-        return this.$store.getters.projectInfo.proName;
+      storeXmId(){  // 时时获取项目的名称
+        this.xmid  = this.$store.getters.projectInfo.xmid;
+        console.log("获取store存储的项目id:"+this.xmid);
+        this.getDetailData();
+        return this.xmid;
       }
-    },
-    methods:{
-      onClickLeft(){
-        history.back();
-        console.log("取消事件");
-      },
-      onClickRight(){
-        console.log("搜索事件");
-      },
-      goPrePage(){
-        this.$router.push({path:'/project/detail'});
-      }
-
     },
     mounted:function () {
       // 将按钮垂直居中显示
       for(var i=0;i<$('.van-row').length;i++){
         var l = $($('.van-row')[i]).height();
-        console.log("每行的高度为：" +l)
+
         $($('.pSwitch')[i]).css({
           'marginTop':(l-33)/2+'px'
         })
+      };
+      this.getDetailData();
+
+    },
+    methods:{
+      getDetailData(){
+        let vm = this;
+        let url = 'http://whjjgc.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
+
+        console.log("项目第2页详情页面："+url);
+        axios.get(url).then(response => {
+          vm.detailNextData = response.data[0];
+          console.log("详情页第二页数据1：" +JSON.stringify(vm.detailNextData));
+          vm.detailNextData.zyglrypzjsc = vm.detailNextData.zyglrypzjsc == '1'?true:false;
+          vm.detailNextData.jcglzd = vm.detailNextData.jcglzd == '1'?true:false;
+          vm.detailNextData.zyjxsb = vm.detailNextData.zyjxsb == '1'?true:false;
+          vm.detailNextData.zdxszbz = vm.detailNextData.zdxszbz == '1'?true:false;
+          vm.detailNextData.dlgc = vm.detailNextData.dlgc == '1'?true:false;
+          vm.detailNextData.shzc = vm.detailNextData.shzc == '1'?true:false;
+
+          console.log("详情页第二页数据22：" +JSON.stringify(vm.detailNextData));
+        }).catch(err => {
+          console.error(err.message)
+        })
+      },
+      onClickLeft(){
+        this.$router.push({path:'/project/detail'});
+      },
+      goPrePage(){
+        this.$router.push({path:'/project/detail'});
       }
+
     }
   }
 

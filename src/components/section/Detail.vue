@@ -1,8 +1,8 @@
 <template>
-  <div class="search">
+  <div class="detail">
     <van-nav-bar
       v-bind:title='detailData.bdmc' fixed
-      left-text="<"
+      left-text="返回"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
@@ -11,7 +11,7 @@
       <van-row>
         <van-col span="8">合同标段</van-col>
         <van-col span="16" >
-          <span @click='popupClick(detailData.bd)'>{{detailData.bd}}</span>
+          <span @click='popupClick(detailData.bdmc)'>{{detailData.bdmc}}</span>
         </van-col>
       </van-row>
       <van-row>
@@ -42,7 +42,9 @@
         <van-col span="24">施工单位自验结果</van-col>
       </van-row>
       <van-row>
-        <van-col span="24">自验结果</van-col>
+        <van-col span="24">
+          <span @click='popupClick(detailData.sgdwzyjg)'>{{detailData.sgdwzyjg}}</span>
+        </van-col>
       </van-row>
       <van-row>
         <van-col span="8">项目部</van-col>
@@ -60,7 +62,9 @@
         <van-col span="24">监理单位审查意见</van-col>
       </van-row>
       <van-row>
-        <van-col span="24">验收意见</van-col>
+        <van-col span="24">
+          <span @click='popupClick(detailData.jldwscyj)'>{{detailData.jldwscyj}}</span>
+        </van-col>
       </van-row>
       <van-row>
         <van-col span="8">监理站</van-col>
@@ -78,7 +82,9 @@
         <van-col span="24">建设单位审查意见</van-col>
       </van-row>
       <van-row>
-        <van-col span="24">验收意见</van-col>
+        <van-col span="24">
+          <span @click='popupClick(detailData.jsdwysyj)'>{{detailData.jsdwysyj}}</span>
+        </van-col>
       </van-row>
       <van-row>
         <van-col span="8">项目管理机构</van-col>
@@ -98,6 +104,7 @@
         popup-transition="popup-fade">
         <p>{{popupTxt}}</p>
       </mt-popup>
+      <p hidden>{{storeId}}</p>
     </div>
 
   </div>
@@ -107,26 +114,28 @@
 
   import axios from 'axios';
   import Header from '../Common/Header'
+
   export default {
-    name: "search",
+    name: "detail",
     data() {
       return {
-        proName:'',
-        popupTxt:'点击的内容',
-        popupVisible:false,
-        bdid:'3',
-        detailData:[]
+        id:-1, // 标段id
+        type:1, // 移动端
+        detailData:{}, // 详情数据
+        popupTxt:'', // 弹出层显示内容
+        popupVisible:false, // 弹出层可视否
       }
     },
     components:{
       Header
     },
-  /*  computed:{
-      storeBdid(){  // 时时获取项目的名称
-        this.bdid  = this.$store.getters.sectionInfo.bdid;
-        return this.bdid;
+    computed:{
+      storeId(){  // 时时获取项目的名称
+        this.id  = this.$store.getters.sectionInfo.id;
+        this.getDetailData();
+        return this.id;
       }
-    },*/
+    },
     mounted:function () {
       this.getDetailData();
     },
@@ -144,11 +153,11 @@
       // 根据标段id获取详情页数据
       getDetailData(){
         let vm = this;
-        let url = 'http://whjjgc.r93535.com/BdgckgbzhServlet?bdid='+this.bdid+'&type=1';
-
+        let url='http://whjjgc.r93535.com/BdgckgbzhServlet?bdid='+vm.id+'&type='+vm.type;
+        console.log("请求标段详情数据第一页数据的url："+url);
         axios.get(url).then(response => {
           vm.detailData = response.data[0];
-          console.log("详情第一页的数据："+JSON.stringify(vm.detailData));
+          console.log("标段详情第一页的数据："+JSON.stringify(vm.detailData));
         }).catch(err => {
           console.error(err.message)
         })
@@ -211,6 +220,13 @@
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
+  }
+
+  .van-col.van-col-24 span{
+    display: inline-block;;
+    width:100%;
+    height:100%;
+    background: #fff;
   }
 
 

@@ -12,18 +12,18 @@ import LSQKIndex from '../components/implementation/Index'
 import LSQKListDetail from '../components/implementation/ListDetail'
 
 // 项目
-import Project from '../components/project/Index'
+import Project from '../components/project/ProjectIndex'
 import ProjectDetail from '../components/project/Detail'
 import ProjectDetailNext from '../components/project/DetailNext'
 
 // 标段
-import SectionIndex from '../components/section/Index'
+import SectionIndex from '../components/section/SectionIndex'
 import SectionSearch from '../components/section/Search'
 import SectionDetail from '../components/section/Detail'
 import SectionDetailNext from '../components/section/DetailNext'
 
 // 单位工程
-import UnitIndex from '../components/unitProject/Index'
+import UnitIndex from '../components/unitProject/UnitProjectIndex'
 import UnitSearch from '../components/unitProject/Search'
 import UnitDetail from '../components/unitProject/Detail'
 import UnitDetailNext from '../components/unitProject/DetailNext'

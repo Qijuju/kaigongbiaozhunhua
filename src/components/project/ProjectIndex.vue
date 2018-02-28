@@ -1,55 +1,19 @@
 <template>
-  <div class="index">
+  <div class="projectIndex">
     <Header title="项目工程开工标准化"></Header>
     <div class="content">
-      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
+      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myProjectScroller">
+
         <div class="box">
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-30</p>
-              </div>
-              <div class="item " @click="goDetail('测试项目名称1')">1京能十堰热电铁路专用线工程</div>
+          <div class="innerBox clearfix" v-for="list in lists">
+            <div class="time">
+              <p>{{list.date}}</p>
             </div>
-
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-29</p>
-              </div>
-              <div class="item" @click="goDetail('测试项目名称2')">2京广线孟庙至蒲圻段牵引供电设施改造工程（南线）</div>
-              <div class="item" @click="goDetail('测试项目名称3')">3滠口物流基地工程</div>
+            <div class="item" v-for="item in list.data" @click="goDetail(item.xmid)">
+              <p>{{item.xmmc}}</p>
+              <p hidden>{{storeHtbdSearchCondId}}</p>
             </div>
-
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-28</p>
-              </div>
-              <div class="item" @click="goDetail('测试项目名称4')">4京能十堰热电铁路专用线工程</div>
-              <div class="item" @click="goDetail('测试项目名称5')">5京广线孟庙至蒲圻段牵引供电设施改造工程（南线）</div>
-              <div class="item" @click="goDetail('测试项目名称6')">6滠口物流基地工程</div>
-            </div>
-
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-27</p>
-              </div>
-              <div class="item" @click="goDetail('测试项目名称7')">7京能十堰热电铁路专用线工程</div>
-            </div>
-
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-26</p>
-              </div>
-              <div class="item" @click="goDetail('测试项目名称8')">8京广线孟庙至蒲圻段牵引供电设施改造工程（南线）</div>
-              <div class="item" @click="goDetail('测试项目名称9')">9滠口物流基地工程</div>
-            </div>
-
-            <div class="innerBox clearfix">
-              <div class="time">
-                <p>2018-01-26</p>
-              </div>
-              <div class="item" @click="goDetail('测试项目名称8')">8京广线孟庙至蒲圻段牵引供电设施改造工程（南线）</div>
-              <div class="item" @click="goDetail('测试项目名称9')">9滠口物流基地工程</div>
-            </div>
+          </div>
         </div>
       </scroller>
     </div>
@@ -64,14 +28,15 @@
   Vue.use(VueScroller)
 
   export default {
-    name: "index",
+    name: "projectIndex",
     components:{
       Header,VueScroller
     },
     data() {
       return {
-        baseuserId:'235739', // 人员id（基础平台的）
+        baseuserId:102300, // 人员id（基础平台的）
         page:1, // 当前页码
+
         pageSize:10, // 每页显示的数据
         noData:'',
         lists:[],
@@ -96,23 +61,26 @@
       this.getList('','',''); // 获取列表数据
     },
     methods:{
-      // 获取首页数据
+      // 获取项目首页列表数据源
       getList(xmjgglId,xmmcId,htbdId){
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url = getUrl(xmjgglId,xmmcId,htbdId,vm.baseuserId,vm.page);
+        let url ='http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
+
+        console.log("项目工程开工标准化请求数据的url："+url);
 
         axios.get(url)
           .then(response => {
             this.lists = response.data.data;
+            console.log("请求的数据的项目的列表数据："+JSON.stringify(this.lists));
             let thisCount = response.data.thisCount; // 当前请求的数据的条数
             if(thisCount < vm.pageSize) {
               vm.noData = "没有更多数据"
             }else {
               vm.noData ='';
             }
-            console.log("请求的数据llalllalall："+JSON.stringify(response.data));
+
           }).catch(err => {
           console.error(err.message)
         })
@@ -123,7 +91,7 @@
         let vm= this;
         vm.getList('','',''); // 调用请求首页数据的方法
         setTimeout(() => {
-          this.$refs.myscroller.resize(); // 加载图标1.5s后消失
+          this.$refs.myProjectScroller.resize(); // 加载图标1.5s后消失
         }, 1500)
 
         done() // call done
@@ -132,15 +100,14 @@
       infinite(done) {
         if(this.noData) {
           setTimeout(()=>{
-            this.$refs.myscroller.finishInfinite(2);
-          })
+            this.$refs.myProjectScroller.finishInfinite(2);
+          });
           return;
         }
 
         let vm = this;
         vm.page++;
-        console.log("我的页码为：" +vm.page);
-        let url = getUrl(vm.xmjgglSearchCondId , vm.xmmcSearchCondId,vm.htbdSearchCondId,vm.baseuserId,vm.page);
+        let url ='http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
@@ -148,31 +115,9 @@
 
           setTimeout(() => {
             if(thisCount < vm.pageSize) {
-              vm.noData = "没有更多数据"
+              vm.noData = "没有更多数据了"
             }
-            // 将新的数据源追加到数据源列表中
-            // 如何新数据的第一条的日期===老数据的最后一条数据的日期，删除新数据的第一条数据，同时将删除的数据添加到老数据的最后一条中，反之直接追加数据
-              if (vm.lists[vm.lists.length-1].date === newData[0].date){
-                vm.lists[vm.lists.length-1].data = vm.lists[vm.lists.length-1].data.concat(newData[0].data);
-                if (newData.length-1>0){
-                  newData.splice(0,1);
-                  for(var i=1;i<newData.length;i++){
-                    let obj={};
-                    obj["data"] = newData[i].data;
-                    obj["date"] = newData[i].date;
-                    vm.lists.push(obj);
-                  }
-                }
-              }else { //
-                for(var i=0;i<newData.length;i++){
-                  // 如何新数据的第一条的日期===老数据的最后一条数据的日期，删除新数据的第一条数据，同时将删除的数据添加到老数据的最后一条中
-                  let obj={};
-                  obj["data"] = newData[i].data;
-                  obj["date"] = newData[i].date;
-                  vm.lists.push(obj);
-                }
-              }
-            vm.$refs.myscroller.resize();
+            vm.$refs.myProjectScroller.resize();
             done()
           }, 1000);
         }, (response) => {
@@ -180,9 +125,9 @@
         });
       },
       // 跳转详情页面
-      goDetail(proName){
-        console.log("点击的项目是："+ proName);
-        this.$store.commit('setProjectInfo',{proName:proName});
+      goDetail(xmid){
+        console.log("点击的项目是："+ xmid);
+        this.$store.commit('setProjectInfo',{xmid:xmid});
         this.$router.push({path:'/project/detail'});
       }
     }

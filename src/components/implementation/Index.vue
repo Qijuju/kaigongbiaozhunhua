@@ -1,10 +1,14 @@
 <template>
   <div class="index">
 
-    <Header title="项目开工条件落实情况"></Header>
+    <!--<Header title="项目开工条件落实情况"></Header>-->
+    <van-nav-bar
+      v-bind:title="'项目开工条件落实情况'"  fixed
+    >
+    </van-nav-bar>
 
     <v-scroll :on-refresh="onRefresh" :on-infinite="onInfinite">
-      <div class="list" >
+      <div class="list">
         <div v-for="item in lists" @click="goListDetail(item)">{{item.xmmc}}</div>
       </div>
     </v-scroll>
@@ -24,7 +28,8 @@
     },
     data(){
       return{
-        baseuserid:'222408',
+        baseuserid:102300,
+        page:1,
         lists:[{'xmmc':'测试项目名称一','id':1},{'xmmc':'测试项目名称二','id':2},{'xmmc':'测试项目名称三','id':3}]
       }
     },
@@ -32,19 +37,18 @@
       this.getList();
     },
     methods:{
-      // 获取列表数据
+      // 获取落实情况的列表数据
       getList(){
         let vm = this;
-        let url ='http://whjjgc.r93535.com/XmkgtjlsqkListServlet?baseuserid='+vm.baseuserid;
+        let url ='http://whjjgc.r93535.com/XmkgtjlsqkListServlet?baseuserid='+vm.baseuserid+'&page='+vm.page;
         axios.get(url).then(response => {
-          this.lists = response.data;
+          this.lists = response.data.data;
         }).catch(err => {
           console.error(err.message)
         })
       },
       // 跳转列表详情页面
       goListDetail(item){
-        console.log("路由传的值为：" +JSON.stringify(item));
         this.$router.push({path: '/implementation/LSQKListDetail',query:{xmmc:item.xmmc,xmid:item.xmid}}); // 路由信息传值
       },
       onRefresh(done) {
@@ -60,7 +64,7 @@
 
       },
 
-      // 跳转到列表详情页
+      // 跳转到列表详情页1
       goDetail(planItem){
 
       },
@@ -86,7 +90,9 @@
     padding:0 10px;
     text-align:left;
     line-height:40px;
-    /*border-bottom:1px solid #ccc;*/
+    overflow: hidden;
+    text-overflow:ellipsis;
+    white-space: nowrap;
   }
   .list > div:nth-child(odd){
     background-color: #E5F2FA

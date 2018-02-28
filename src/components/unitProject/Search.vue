@@ -2,7 +2,7 @@
   <div class="search">
     <van-nav-bar
       title="单位工程开工标准化"
-      left-text="取消"
+      left-text="返回"
       right-text="搜索"
       @click-left="onClickLeft"
       @click-right="onClickRight"
@@ -229,6 +229,7 @@
         }else {
           url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid=222412';
         }
+        console.log("获取单位工程项目字典请求的url："+url);
         axios.get(url)
           .then(response => {
 //            console.log("项目名称列表数据为：" +JSON.stringify(response.data));

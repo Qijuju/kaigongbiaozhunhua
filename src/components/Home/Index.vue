@@ -28,7 +28,23 @@
 
     <!-- 要滚动的内容 -->
     <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
-      <div class="list">
+      <div class="list" v-if="toDoWorkIsShow">
+        <div class="listItem" v-for="item in ToDoWorkflowList">
+          <p>{{item.requestName}}</p>
+          <p>{{item.workflowName}}</p>
+          <p>{{item.currentNodeName}}</p>
+          <p>{{item.creatorName}}</p>
+        </div>
+      </div>
+      <div class="list" v-if="doneWorkIsShow">
+        <div class="listItem" v-for="item in ToDoWorkflowList">
+          <p>{{item.requestName}}</p>
+          <p>{{item.workflowName}}</p>
+          <p>{{item.currentNodeName}}</p>
+          <p>{{item.creatorName}}</p>
+        </div>
+      </div>
+      <div class="list" v-if="iStartedIsShow">
         <div class="listItem" v-for="item in ToDoWorkflowList">
           <p>{{item.requestName}}</p>
           <p>{{item.workflowName}}</p>
@@ -53,7 +69,7 @@
     name: "index",
     data(){
       return{
-        active: 0,     // 当前选中的tab的下标
+        active: 0,     // 默认选中的tab的下标
         count:3,       // 待我审批的数量
         pageNo : 1,   // 请求页码
         pageSize:7, // 每页请求数据的条数
@@ -61,8 +77,11 @@
         ToDoWorkflowList: [],  // 待办流程列表数据
         searchTab1:false,
         searchTab2:false,
-        baseuserId:236807,
+        baseuserId:102300,
         noData: '',
+        toDoWorkIsShow:true,
+        doneWorkIsShow:false,
+        iStartedIsShow:false,
 
       }
     },
@@ -77,13 +96,14 @@
     methods:{
       // 获取‘待我审批’字典
       getToDoWorkflowList(){
-        console.log("获取首页数据方法调用");
         let vm = this;
         vm.pageNo = 1;
 //        http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId=236807&pageNo=1&workflowTypeId=18&pageSize=100
         var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
         axios.get(url).then(response => {
           vm.ToDoWorkflowList = response.data;
+          console.log("待我审批的列表数据："+JSON.stringify(vm.ToDoWorkflowList));
+
         }).catch(err => {
           console.error(err.message)
         })
@@ -107,15 +127,11 @@
           })
           return;
         }
-
         let vm = this;
         vm.pageNo++;
-
         var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' +vm.pageSize;
         axios.get(url).then((response) => {
-
           let arr = response.data; // 请求数据的条数
-
           setTimeout(() => {
             if(arr.length < vm.pageSize) {
               vm.noData = "没有更多数据"
@@ -141,27 +157,35 @@
             }
             vm.$refs.myscroller.resize();
             done()
-          }, 1500);
+          }, 1000);
         }, (response) => {
           console.log('error');
         });
       },
-      // tabs 的点击事件
+      //待我审批、我已审批、我发起的 点击事件
       handleTabClick(index) {
-        this.active = index;
-//        switch (index){
-//          case 0:
-//
-//            break;
-//          case 1:
-//
-//            break
-//          case 2:
-//
-//            break
-//          default:
-//            break;
-//        }
+        let  vm=this;
+        vm.active = index;
+
+        switch (index){
+          case 0:
+            vm.toDoWorkIsShow = true;
+            vm.doneWorkIsShow = false;
+            vm.iStartedIsShow = false;
+            break;
+          case 1:
+            vm.toDoWorkIsShow = false;
+            vm.doneWorkIsShow = true;
+            vm.iStartedIsShow = false;
+            break;
+          case 2:
+            vm.toDoWorkIsShow = false;
+            vm.doneWorkIsShow = false;
+            vm.iStartedIsShow = true;
+            break;
+          default:
+            break;
+        }
       },
       // 获取待我审批的数量
       getCount(){
@@ -194,7 +218,8 @@
           this.searchTab1 = false;
           this.searchTab2 = true;
         }
-      }
+      },
+
 
     }
   }

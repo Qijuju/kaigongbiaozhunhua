@@ -35,8 +35,15 @@
   font-size: 16px;
   color: #fff;
 }
+/*title*/
 .van-nav-bar__title{
   color: #fff;
+  width:65%;
+  margin:auto;
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+
 }
 
 /* 下拉可选项 */

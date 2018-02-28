@@ -1,6 +1,5 @@
 <template>
   <div class="footer">
-
     <mt-tabbar v-model="selectedTab" fixed>
       <mt-tab-item id="首页">
         <img v-if="selectedTab==='首页'" slot="icon" src="../../assets/images/images/homeg.png" >
@@ -60,7 +59,6 @@
               break;
 
           }
-
           console.log("电机的对象：" + newVal +'-' +oldVal);
         }
       },

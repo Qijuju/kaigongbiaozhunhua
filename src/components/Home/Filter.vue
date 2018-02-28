@@ -1,19 +1,9 @@
 <template>
   <div class="filter">
-    <!--<van-nav-bar-->
-    <!--v-bind:title='storeProName' fixed-->
-    <!--left-text="<"-->
-    <!--right-text="×"-->
-    <!--@click-left="onClickLeft"-->
-    <!--@click-right="onClickRight"-->
-    <!--&gt;-->
-    <!--</van-nav-bar>-->
     <van-nav-bar
       v-bind:title="'筛选页面'" fixed
-      left-text="<"
-      right-text="×"
+      left-text="返回"
       @click-left="onClickLeft"
-      @click-right="onClickRight"
     >
     </van-nav-bar>
 
@@ -33,9 +23,7 @@
     },
     methods:{
       onClickLeft() {
-        history.back();
-      },
-      onClickRight() {
+        this.$router.push({path:'/Home'});
       }
 
     }
