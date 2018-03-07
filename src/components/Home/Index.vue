@@ -117,7 +117,9 @@
         if(to.path==='/Home'){
           var data = to.query;
           if(from.path==='/Home/search'){
-            this.requestName=data.requestName
+            if(data.requestName!=undefined){
+              this.requestName=data.requestName
+            }
             this.getToDoWorkflowList(); // 获取‘待我审批’字典
           }
           if(from.path==='/Home/filter'){
@@ -126,7 +128,9 @@
             }else{
               this.isArchived=false
             }
-            this.workflowId=data.workflowId
+            if(data.workflowId!=undefined){
+              this.workflowId=data.workflowId
+            }
             this.getToDoWorkflowList();
           }
           if(from.path==='/Home/detail'){

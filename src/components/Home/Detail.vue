@@ -1,7 +1,7 @@
 <template>
   <div>
     <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft" fixed></van-nav-bar>
-    <iframe  style="margin-top:44px;width:100%;height:1000px;border:0;" :src="url"></iframe>
+    <iframe  style="margin-top:44px;width:100%;height:1000px;border: 0px" :src="url"></iframe>
   </div>
 </template>
 
