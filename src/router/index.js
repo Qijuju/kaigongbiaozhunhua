@@ -6,7 +6,6 @@ import Home from '../components/Home/Index'
 import HomeSearch from '../components/Home/Search'
 import HomeFifter from '../components/Home/Filter'
 
-
 // 落实情况
 import LSQKIndex from '../components/implementation/Index'
 import LSQKListDetail from '../components/implementation/ListDetail'
@@ -27,19 +26,6 @@ import UnitIndex from '../components/unitProject/UnitProjectIndex'
 import UnitSearch from '../components/unitProject/Search'
 import UnitDetail from '../components/unitProject/Detail'
 import UnitDetailNext from '../components/unitProject/DetailNext'
-
-// 待办流程
-import ToDoWork from '../components/todowork/ToDoWork'
-import ToDoWorkSearch from '../components/todowork/ToDoWorkSearch'
-import ToDoWorkScreen from '../components/todowork/ToDoWorkScreen'
-// 已办流程
-import DoWork from '../components/dowork/DoWork'
-import DoWorkSearch from '../components/dowork/DoWorkSearch'
-import DoWorkScreen from '../components/dowork/DoWorkScreen'
-// 我发起的流程
-import ICreate from '../components/icreate/ICreate'
-import ICreateSearch from '../components/icreate/ICreateSearch'
-import ICreateScreen from '../components/icreate/ICreateScreen'
 
 Vue.use(VueRouter)
 
@@ -130,54 +116,7 @@ const router = new VueRouter({
       name: 'UnitDetailNext',
       component: UnitDetailNext
     },
-    // 待办流程
     {
-      path: '/ToDoWork',
-      name: 'ToDoWork',
-      component: ToDoWork
-    },
-    {
-      path: '/ToDoWorkScreen',
-      name: 'ToDoWorkScreen',
-      component: ToDoWorkScreen
-    },
-    {
-      path: '/ToDoWorkSearch',
-      name: 'ToDoWorkSearch',
-      component: ToDoWorkSearch
-    },
-    // 已办流程
-    {
-      path: '/DoWork',
-      name: 'DoWork',
-      component: DoWork
-    },
-    {
-      path: '/DoWorkScreen',
-      name: 'DoWorkScreen',
-      component: DoWorkScreen
-    },
-    {
-      path: '/DoWorkSearch',
-      name: 'DoWorkSearch',
-      component: DoWorkSearch
-    },
-    // 我发起的流程
-    {
-      path: '/ICreate',
-      name: 'ICreate',
-      component: ICreate
-    },
-    {
-      path: '/ICreateScreen',
-      name: 'ICreateScreen',
-      component: ICreateScreen
-    },
-    {
-      path: '/ICreateSearch',
-      name: 'ICreateSearch',
-      component: ICreateSearch
-    },{
       path: '*',
       redirect: '/Home'
     }]

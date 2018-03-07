@@ -2,7 +2,7 @@
   <div class="search">
     <van-nav-bar
       v-bind:title='detailData.xmmc' fixed
-      left-text="返回222"
+      left-text="返回"
       @click-left="onClickLeft"
     >
     </van-nav-bar>
@@ -108,10 +108,7 @@
         xmid:-1,// 项目id
         detailData:{},
         popupTxt:'',
-
-
         proName:'',
-
         popupVisible:false
       }
     },

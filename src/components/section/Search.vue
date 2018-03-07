@@ -1,5 +1,6 @@
 <template>
   <div class="search">
+
     <van-nav-bar
       title="标段工程开工标准化"
       left-text="返回"
@@ -8,6 +9,7 @@
       @click-right="onClickRight"
     >
     </van-nav-bar>
+
     <div @click="isShowXMGLLG()">
       <van-cell-group>
         <van-field
@@ -18,6 +20,7 @@
         />
       </van-cell-group>
     </div>
+
     <div @click="isShowXMMC()">
       <van-cell-group>
         <van-field
@@ -28,6 +31,7 @@
         />
       </van-cell-group>
     </div>
+
     <div @click="isShowHTBD()">
       <van-cell-group>
         <van-field
@@ -39,7 +43,6 @@
       </van-cell-group>
     </div>
 
-    <!-- 选项框:项目管理机构-->
     <div id="xmgljgIsShow" v-if="xmgljgIsShow">
       <van-picker
                   show-toolbar
@@ -50,7 +53,6 @@
       />
     </div>
 
-    <!-- 选项框:项目名称-->
     <div id="xmmcIsShow" v-if="xmmcIsShow">
       <van-picker
                   show-toolbar
@@ -59,9 +61,9 @@
                   @cancel="onCancel"
                   @confirm="onCMMCConfirm"
       />
+
     </div>
 
-    <!-- 选项框:合同标段-->
     <div id="htbdIsShow" v-if="htbdIsShow">
       <van-picker
                   show-toolbar
@@ -71,7 +73,6 @@
                   @confirm="onHTBDConfirm"
       />
     </div>
-
   </div>
 </template>
 
@@ -82,93 +83,66 @@
     name: "search",
     data() {
       return {
-
         baseuserId:102300,
+        visibleItemCount:3,
 
         xmgljgIsShow:false,// 项目管理机构选项是否显示
-        xmmcIsShow:false, // 项目名称选项是否显示
-        htbdIsShow:false, // 合同标段选项是否显示
         xmgljg:'', // 选中一条的数据
         xmgljgId:'', // 选中一条数据的id
-        xmmc:'',
-        xmmcId:'',
-        htbd:'',
-        htbdId:'',
         xmgljgNameArr: [], // 只有name字段的数据
         xmgljgArr:[], // 全部数据id+name
+
+        xmmcIsShow:false, // 项目名称选项是否显示
+        xmmc:'',
+        xmmcId:'',
         xmmcNameArr:[],
         xmmcArr:[],
-        htbdNameArr:['合同标段（01）','合同标段（02）','合同标段（03）','合同标段（04）','合同标段（05）'],
-        htbdArr:[
-          {
-            "id": "1",
-            "xmmc": "合同标段（01）"
-          },
-          {
-            "id": "2",
-            "xmmc": "合同标段（02）"
-          },
-          {
-            "id": "3",
-            "xmmc": "合同标段（03）"
-          },
-          {
-            "id": "4",
-            "xmmc": "合同标段（04）"
-          },
-          {
-            "id": "5",
-            "xmmc": "合同标段（05）"
-          },
-        ],
-        visibleItemCount:3
+
+        htbdIsShow:false, // 合同标段选项是否显示
+        htbd:'',
+        htbdId:'',
+        htbdNameArr:[],
+        htbdArr:[],
+
       }
     },
     mounted:function () {
-      this.getXMGLLGData();
-      this.getXMMCData();
-      this.getHTBDData();
+      this.getXMGLLGDict();
+      this.getXMMCDict();
+      this.getHTBDDict();
     },
+
     methods:{
       onClickLeft(){
         this.$router.push({path:'/section'});
       },
       onClickRight(){
-        let obj ={
-          xmjgglSearchCondId:this.xmgljgId,
-          xmmcSearchCondId:this.xmmcId,
-          htbdSearchCondId:this.htbdId
+        let query ={
+          xmgljgId:this.xmgljgId,
+          xmmcId:this.xmmcId,
+          htbdId:this.htbdId
         };
-        this.$store.commit('setSectionInfo',obj);
-        // 跳转到标段列表页面，根据搜索条件锅炉列表数据
-        this.$router.push({path:'/section',});
+
+        this.$router.push({path:'/section',query: query});
       },
-      // 选择器：确认调取方法：项目管理机构
+      // 项目管理机构
       onXMGLJGConfirm(value, index) {
         this.xmgljg = value;
-        this.xmgljgId= this.xmgljgArr[index].id;
+        this.xmgljgId= this.xmgljgArr[index].id; // 获取选中项的id
         this.xmgljgIsShow =false;
-
-        // 将选中的项目管理机构的id存储起来
-        this.$store.commit('setSectionInfo',{xmjgglId:this.xmgljgArr[index].id});
-//        console.log(`项目管理机构当前值：${value}, 当前索引：${index},id:${this.xmgljgArr[index].id}`);
-        // 根据选择的项目管理机构重新请求项目名称列表数据
-        this.getXMMCData();
+//        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
       // 选择器：确认调取方法：项目名称
       onCMMCConfirm(value, index) {
         this.xmmc = value;
-        this.xmmcId= this.xmmcArr[index].id;
+        this.xmmcId= this.xmmcArr[index].id;// 获取选中项的id
         this.xmmcIsShow =false;
-        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
-        this.getHTBDData();
       },
       // 选择器：确认调取方法：项目名称
       onHTBDConfirm(value,index) {
         this.htbd = value;
-        this.htbdId= this.htbdArr[index].id;
+        this.htbdId= this.htbdArr[index].id;// 获取选中项的id
         this.htbdIsShow =false;
-        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
       // 选择器：取消调取方法,隐藏选项框
       onCancel() {
@@ -191,13 +165,15 @@
         this.xmgljgIsShow = false;
         this.xmmcIsShow = false;
       },
-      //  项目管理机构字典
-      getXMGLLGData(){
+      //  项目管理机构字典数据
+      getXMGLLGDict(){
         let vm=this;
-        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid='+vm.baseuserid;
+        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid='+vm.baseuserId;
+        console.log("项目字典数据url:"+url);
         axios.get(url)
           .then(response => {
             vm.xmgljgArr = response.data;
+            console.log("项目字典数据:"+JSON.stringify(vm.xmgljgArr));
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].subcompanyname)
@@ -207,21 +183,21 @@
           console.error(err.message)
         })
       },
-      // 项目名称字典数据
-      getXMMCData(){
-        let vm=this;
-        console.log("获取项目字典数据的参数：机构id："+vm.xmgljgId);
-        let url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid='+vm.baseuserId+'&gljg='+this.xmgljgId;
-        console.log("获取项目字典请求的url："+url);
 
+      // 项目字典数据
+      getXMMCDict(){
+        let vm=this;
+        let url ='http://whjjgc.r93535.com/XiangmuServlet?baseuserid='+vm.baseuserId+'&orgid=265&xmgljg='+vm.xmgljgId;
+        console.log("项目字典数据url:"+url);
         axios.get(url)
           .then(response => {
             vm.xmmcArr = response.data;
-            console.log("获取标段字典请求数据："+JSON.stringify(vm.xmmcArr));
+            console.log("项目字典数据:"+JSON.stringify(vm.xmmcArr));
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].xmmc)
             }
+
             this.xmmcNameArr = temp;
 
           }).catch(err => {
@@ -229,17 +205,13 @@
         })
       },
       //  合同标段字典
-      getHTBDData(){
+      getHTBDDict(){
         let vm=this;
-        console.log("获取标段字典数据的参数：项目id："+vm.xmmcId+",机构id："+vm.xmgljgId);
         let url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId;
-        console.log("获取标段字典请求的url："+url);
 
         axios.get(url)
           .then(response => {
             vm.htbdArr = response.data;
-            console.log("获取标段字典请求数据："+JSON.stringify(vm.htbdArr));
-
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].bdmc)
