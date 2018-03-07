@@ -62,6 +62,7 @@
   import axios from 'axios';
   import Header from '../Common/Header'
   import VueScroller from 'vue-scroller'
+//  import Footer from '../Common/Footer'
   Vue.use(VueScroller)
 
 
@@ -88,6 +89,7 @@
     components:{
       Header,
       VueScroller
+//      Footer
     },
     mounted:function () {
       this.getCount();
@@ -98,7 +100,6 @@
       getToDoWorkflowList(){
         let vm = this;
         vm.pageNo = 1;
-//        http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId=236807&pageNo=1&workflowTypeId=18&pageSize=100
         var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
         axios.get(url).then(response => {
           vm.ToDoWorkflowList = response.data;
@@ -202,10 +203,8 @@
         // 设置字体颜色
         $($('.condition')[num]).css({
           'color':'#0087e8',
-          'borderBottom':'2px solid #0087e8'
         }).siblings().css({
           'color':'#333',
-          'borderBottom':'none'
         })
 
         if (num===0){

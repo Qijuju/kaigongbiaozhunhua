@@ -108,7 +108,7 @@
         let vm = this;
         vm.page++;
         let url ='http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
-
+//        http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid=102300&xmmc=&xmgljg=
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
           let newData = response.data.data; // 请求数据
@@ -132,57 +132,6 @@
       }
     }
   }
-
-  // 定义函数，返回请求的 url
-  function getUrl(xmjgglId,xmmcId,htbdId,baseuserId,page) {
-    let url='';
-    // http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd=109&baseuserid=235739&page=1;
-    // 全部非空
-    if (xmjgglId !== ''&& xmmcId !== ''&& htbdId !== ''){
-      console.log("全部非空");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&bd='+htbdId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 一个空值
-    if(xmjgglId === ''&& xmmcId !== ''&& htbdId !== ''){
-      console.log("一个空值 xmjgglId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&bd='+htbdId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    if (xmjgglId !== ''&& xmmcId === ''&& htbdId !== ''){
-      console.log("一个空值 xmmcId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd='+htbdId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    if (xmjgglId !== ''&& xmmcId !== ''&& htbdId === ''){
-      console.log("一个空值 htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 两个空值
-    if (xmjgglId === ''&& xmmcId === ''&& htbdId !== ''){
-      console.log("两个空值 xmjgglId +xmmcId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&bd='+htbdId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-    if (xmjgglId === ''&& xmmcId !== ''&& htbdId === ''){
-      console.log("两个空值 xmjgglId +htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmmc='+xmmcId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-    if (xmjgglId !== ''&& xmmcId === ''&& htbdId === ''){
-      console.log("两个空值 xmmcId +htbdId");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&xmgljg='+xmjgglId+'&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    // 全部空值
-    if (xmjgglId === ''&& xmmcId === ''&& htbdId === ''){
-      console.log("全部空值");
-      url ='http://whjjgc.r93535.com/BdgckgbzhListServlet?type=1&baseuserid='+baseuserId+'&page='+page;
-    }
-
-    return url;
-  }
-
-
 
 </script>
 

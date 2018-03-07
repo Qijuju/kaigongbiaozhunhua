@@ -108,10 +108,7 @@
         xmid:-1,// 项目id
         detailData:{},
         popupTxt:'',
-
-
         proName:'',
-
         popupVisible:false
       }
     },

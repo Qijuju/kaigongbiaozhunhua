@@ -47,11 +47,17 @@
         type:1,
         page:1, // 当前页码
 
+        dwgcId:'', // 单位管理id
+        htbdId:'', // 标段id
+        xmgljgId:'',// 项目管理机构id
+        xmmcId:'', // 项目id
+
         searchTab:false,
 
         pageSize:10, // 每页显示的数据
         noData:'',
         lists:[],
+
         xmjgglSearchCondId:'', // 获取搜索的项目管理机构id
         xmmcSearchCondId:'', // 获取搜索的项目名称id
         htbdSearchCondId:''  // 获取搜索的合同标段id
@@ -65,21 +71,48 @@
         vm.htbdSearchCondId = vm.$store.state.sectionInfo.htbdSearchCondId;
 
         // 获取新的搜索条件之后重新请求数据
-        vm.getList(vm.xmjgglSearchCondId , vm.xmmcSearchCondId,vm.htbdSearchCondId );
+        vm.getList();
         return vm.xmjgglSearchCondId;
       }
     },
     mounted:function () {
-      this.getList('','',''); // 获取列表数据
+      this.getList(); // 获取列表数据
+    },
+    watch: {
+      $route: function (to, from) {
+        console.log("watch............")
+
+        if(to.path=='/unitProject'){
+          var data = to.query;
+
+          if(!this.isEmptyObject(data)){
+            this.htbdId=data.htbdId
+            this.dwgcId=data.dwgcId
+            this.xmgljgId=data.xmgljgId
+            this.xmmcId=data.xmmcId
+
+            this.page=1;
+            this.lists=[];
+            this.getList();// 重新获取首页数据
+          }
+        }
+      },
     },
     methods:{
+      isEmptyObject(e) {
+        var t;
+        for (t in e)
+          return !1;
+        return !0
+      },
       // 获取首页数据
-      getList(xmjgglId,xmmcId,htbdId){
+      getList(){
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url ='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&dwgc='+vm.dwgcId;
 
+        console.log("单位列表数据请求的url："+url);
         axios.get(url)
           .then(response => {
             this.lists = response.data.data;
@@ -101,7 +134,7 @@
       // 刷新首页数据
       refresh(done) {
         let vm= this;
-        vm.getList('','',''); // 调用请求首页数据的方法
+        vm.getList(); // 调用请求首页数据的方法
         setTimeout(() => {
           this.$refs.myUnitProjectScroller.resize(); // 加载图标1.5s后消失
         }, 1500)

@@ -105,75 +105,87 @@
     name: "search",
     data() {
       return {
+
+        baseuserid:102300,
+        visibleItemCount:3,
+
         xmgljgIsShow:false,// 项目管理机构选项是否显示
-        xmmcIsShow:false, // 项目名称选项是否显示
-        htbdIsShow:false, // 合同标段选项是否显示
-        dwgcIsShow:false, // 单位工程选项是否显示
         xmgljg:'', // 选中一条的数据
-        xmgljgId:-1, // 选中一条数据的id
+        xmgljgId:'', // 选中一条数据的id
         xmgljgNameArr: [], // 只有name字段的数据
         xmgljgArr:[], // 全部数据id+name
+
+        xmmcIsShow:false, // 项目名称选项是否显示
         xmmc:'',
-        xmmcId:-1,
+        xmmcId:'',
         xmmcNameArr:[],
         xmmcArr:[],
+
+        htbdIsShow:false, // 合同标段选项是否显示
         htbd:'',
-        htbdId:-1,
+        htbdId:'',
         htbdNameArr:[],
         htbdArr:[],
+
+        dwgcIsShow:false, // 单位工程选项是否显示
         dwgc:'',
-        dwgcId:-1,
+        dwgcId:'',
         dwgcNameArr:[],
-        dwgcArr:[],
-        visibleItemCount:3
+        dwgcArr:[]
 
       }
     },
     mounted:function () {
-      this.getXMGLLGData();
-      this.getXMMCData();
-      this.getHTBDData();
+      this.getXMGLLGDict();
+      this.getXMMCDict();
+      this.getHTBDDict();
+      this.getDWGCDict();
     },
     methods:{
       onClickLeft(){
-        console.log("取消事件");
+        this.$router.push({path: '/unitProject'});
       },
       onClickRight(){
-        // 跳转到标段列表页面，根据搜索条件锅炉列表数据
-        this.$router.push({path:'/unitProject'});
-        this.$store.commit('setUnitProjectInfo',{xmgljg:this.xmgljg ,xmmc:this.xmmc ,htbd:this.htbd});
-        console.log("搜索事件");
+        var query = {
+          xmgljgId:this.xmgljgId,
+          xmmcId:this.xmmcId,
+          htbdId:this.htbdId,
+          dwgcId:this.dwgcId,
+        };
+
+        this.$router.push({path: '/unitProject', query: query});
       },
-      // 选择器：确认调取方法：项目管理机构
+      // 确认项目管理机构
       onXMGLLGConfirm(value, index) {
         this.xmgljg = value;
         this.xmgljgId= this.xmgljgArr[index].id;
         this.xmgljgIsShow =false;
-        console.log(`项目管理机构当前值：${value}, 当前索引：${index}`);
+//        console.log(`项目管理机构当前值：${value}, 当前索引：${index}`);
         // 根据选择的项目管理机构重新请求项目名称列表数据
-        this.getXMMCData();
+        this.getXMMCDict();
       },
-      // 选择器：确认调取方法：项目名称
+      // 确认项目名称
       onCMMCConfirm(value, index) {
         this.xmmc = value;
         this.xmmcId= this.xmmcArr[index].id;
         this.xmmcIsShow =false;
-        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
-        this.getHTBDData();
+//        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
+        this.getHTBDDict();
       },
-      // 选择器：确认调取方法：合同标段
+      // 确认合同标段
       onHTBDConfirm(value, index) {
         this.htbd = value;
         this.htbdId= this.htbdArr[index].id;
         this.htbdIsShow =false;
-        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
+//        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
-      //  选择器：确认调取方法：单位工程
+      //  确认单位工程
       onDWGCConfirm(value,index){
         this.dwgc = value;
         this.dwgcId= this.dwgcArr[index].id;
         this.dwgcIsShow =false;
-        console.log(`单位工程当前值：${value}, 当前索引：${index}`);
+        this.getDWGCDict();
+//        console.log(`单位工程当前值：${value}, 当前索引：${index}`);
       },
       // 选择器：取消调取方法,隐藏选项框
       onCancel() {
@@ -206,9 +218,10 @@
         this.xmmcIsShow = false;
         this.htbdIsShow = false;
       },
-      // 调取接口数据:项目管理机构字典
-      getXMGLLGData(){
-        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid=223906';
+      // 项目管理机构字典
+      getXMGLLGDict(){
+        let vm=this;
+        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid='+vm.baseuserid;
         axios.get(url)
           .then(response => {
             this.xmgljgArr = response.data;
@@ -221,18 +234,13 @@
           console.error(err.message)
         })
       },
-      // 调取接口数据:项目名称字典
-      getXMMCData(){
-        let url='';
-        if(this.xmgljgId >= 0){
-          url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid=222412&gljg='+this.xmgljgId;
-        }else {
-          url='http://whjjgc.r93535.com/KgbzhPCServlet?baseuserid=222412';
-        }
-        console.log("获取单位工程项目字典请求的url："+url);
+      // 项目名称字典
+      getXMMCDict(){
+        let vm=this;
+        let url ='http://whjjgc.r93535.com/XiangmuServlet?baseuserid='+vm.baseuserid+'&orgid=265&xmgljg='+vm.xmgljgId;
+
         axios.get(url)
           .then(response => {
-//            console.log("项目名称列表数据为：" +JSON.stringify(response.data));
             this.xmmcArr = response.data;
             var temp =[];
             for(var i=0;i<response.data.length;i++){
@@ -243,52 +251,32 @@
           console.error(err.message)
         })
       },
-      // 调取接口数据:合同标段字典
-      getHTBDData(){
-        let url='';
-        if(this.xmgljgId >= 0 && this.xmmcId < 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmgljg='+this.xmgljgId+'&baseuserid=223906'
-        }else if (this.xmmcId >= 0 && this.xmgljgId < 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId +'&baseuserid=223906';
-        }else if ( this.xmgljgId >= 0 && this.xmmcId >= 0){
-          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId+'&xmgljg='+this.xmgljgId +'&baseuserid=223906';
-        }else {
-          url='http://whjjgc.r93535.com/BiaoduanServlet?baseuserid=223906';
-        }
+      // 合同标段字典
+      getHTBDDict(){
+        let vm=this;
+        let url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserid;
 
-        console.log("2项目机构id：：" +  this.xmgljgId);
-        console.log("2项目名称id：：" +  this.xmmcId);
-        console.log("2合成的url为：" +url);
         axios.get(url)
           .then(response => {
             this.htbdArr = response.data;
-            console.log("标段信息：" +JSON.stringify(this.htbdArr));
+
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].bdmc)
             }
             this.htbdNameArr = temp;
-            console.log("标段可选项：" +JSON.stringify(this.htbdNameArr));
+
           }).catch(err => {
           console.error(err.message)
         })
       },
-      // 调取接口数据:单位工程字典
-      getDWGCData(){
-        let url='http://whjjgc.r93535.com/DanweiServlet?bdid=100&xmmcid=36&xmgljg=8&baseuserid=223906';
-//        if(this.xmgljgId >= 0 && this.xmmcId < 0){
-//          url='http://whjjgc.r93535.com/BiaoduanServlet?xmgljg='+this.xmgljgId+'&baseuserid=223906'
-//        }else if (this.xmmcId >= 0 && this.xmgljgId < 0){
-//          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId +'&baseuserid=223906';
-//        }else if ( this.xmgljgId >= 0 && this.xmmcId >= 0){
-//          url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+this.xmmcId+'&xmgljg='+this.xmgljgId +'&baseuserid=223906';
-//        }else {
-//          url='http://whjjgc.r93535.com/BiaoduanServlet?baseuserid=223906';
-//        }
+      // 单位工程字典
+      getDWGCDict(){
+        let vm=this;
+        let url='http://whjjgc.r93535.com/DanweiServlet?bdid='+vm.htbdId+'&xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserid;
 
         axios.get(url)
           .then(response => {
-//            console.log("项目名称列表数据为：" +JSON.stringify(response.data));
             this.dwgcArr = response.data;
             var temp =[];
             for(var i=0;i<response.data.length;i++){

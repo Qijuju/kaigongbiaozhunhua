@@ -3,7 +3,7 @@
     <Header title="标段工程开工标准化"></Header>
     <div class="content">
       <div class="search">
-        <div id="condition" @click="changStyle()">
+        <div id="condition" @click="goSearch()">
           <img v-if="searchTab" src="../../assets/images/images/searchg.png" alt="searchLogo">
           <img v-else="false" src="../../assets/images/images/search.png" alt="searchLogo">
           搜索
@@ -19,7 +19,7 @@
               <div class="item" v-for="item in list.data" @click="goDetail(item.id)">
                 <p>{{item.bd}}</p>
                 <p>{{item.xmmc}}</p>
-                <p hidden>{{storeHtbdSearchCondId}}</p>
+                <!--<p hidden>{{storeHtbdSearchCondId}}</p>-->
               </div>
             </div>
         </div>
@@ -44,50 +44,66 @@
       return {
         type:1,
         baseuserId:102300, // 人员id（基础平台的）
-        page:1, // 当前页码
-
+        page:1,             // 当前页码
+        pageSize:10,        // 每页显示的数据
+        noData:'',          // 是否还有更多的数据
+        lists:[],           // 列表数据源
         searchTab:false,
-        pageSize:10, // 每页显示的数据
-//        noData:'',
-        lists:[],
-//        xmjgglSearchCondId:'', // 获取搜索的项目管理机构id
-//        xmmcSearchCondId:'', // 获取搜索的项目名称id
-//        htbdSearchCondId:''  // 获取搜索的合同标段id
-      }
-    },
-    computed: {
-      storeHtbdSearchCondId() {
-        let vm=this;
-        vm.xmjgglSearchCondId = vm.$store.state.sectionInfo.xmjgglSearchCondId;
-        vm.xmmcSearchCondId = vm.$store.state.sectionInfo.xmmcSearchCondId;
-        vm.htbdSearchCondId = vm.$store.state.sectionInfo.htbdSearchCondId;
 
-        // 获取新的搜索条件之后重新请求数据
-        vm.getSectionList(vm.xmjgglSearchCondId , vm.xmmcSearchCondId,vm.htbdSearchCondId );
-        return vm.xmjgglSearchCondId;
+        xmmcId:'',
+        bdId:'',
+        xmgljgId:'',
       }
     },
     mounted:function () {
-      this.getSectionList('','',''); // 获取列表数据
+      this.getSectionList(); // 获取列表数据
+    },
+    watch: {
+      $route: function (to, from) {
+        console.log("watch函数............")
+
+        if(to.path=='/section'){
+          var data = to.query;
+          console.log("ids:"+JSON.stringify(data));
+
+          if(!this.isEmptyObject(data)){
+            this.xmmcId=data.xmmcId
+            this.bdId=data.htbdId
+            this.xmgljgId=data.xmgljgId
+
+            this.page=1
+            this.lists=[]
+            this.getSectionList();// 重新获取首页数据
+          }
+        }
+      },
     },
     methods:{
+      isEmptyObject(e) {
+        var t;
+        for (t in e)
+          return !1;
+        return !0
+      },
       // 获取标段列表数据
-      getSectionList(xmjgglId,xmmcId,htbdId){
+      getSectionList(){
+        console.log("获取首页列表数据");
         let vm=this;
         vm.page=1;
-        // 函数调用，获取请求的url
-        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page=1';
-console.log("标段页面请求的url："+url);
+
+        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
+        console.log("获取列表数据url："+url);
+
         axios.get(url)
           .then(response => {
             this.lists = response.data.data;
+
             let thisCount = response.data.thisCount; // 当前请求的数据的条数
-            if(thisCount < vm.pageSize) {
-              vm.noData = "没有更多数据了"
-            }else {
-              vm.noData ='';
-            }
-            console.log("请求的数据llalllalall："+JSON.stringify(response.data));
+
+            // 判断是否还有更多的数据
+            vm.noData = thisCount < vm.pageSize ? '没有更多数据' : '';
+            console.log("vm.noData ：" +vm.noData);
+
           }).catch(err => {
           console.error(err.message)
         })
@@ -95,8 +111,9 @@ console.log("标段页面请求的url："+url);
 
       // 刷新首页数据
       refresh(done) {
+        console.log("刷新数据的方法调用了");
         let vm= this;
-        vm.getSectionList('','',''); // 调用请求首页数据的方法
+        vm.getSectionList(); // 调用请求首页数据的方法
         setTimeout(() => {
           this.$refs.mySectionScroller.resize(); // 加载图标1.5s后消失
         }, 1500)
@@ -105,6 +122,7 @@ console.log("标段页面请求的url："+url);
       },
       // 加载更多
       infinite(done) {
+
         if(this.noData) {
           setTimeout(()=>{
             this.$refs.mySectionScroller.finishInfinite(2);
@@ -112,12 +130,13 @@ console.log("标段页面请求的url："+url);
           return;
         }
 
+        console.log("加载更多的方法调用了"+this.noData);
+
         let vm = this;
         vm.page++;
         console.log("我的页码为：" +vm.page);
 
-        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page=1';
-
+        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
@@ -157,7 +176,7 @@ console.log("标段页面请求的url："+url);
         });
       },
       // 跳转搜索页面
-      changStyle(){
+      goSearch(){
         this.$router.push({path:'/section/search'});
 
         $('#condition').css({
