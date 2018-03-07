@@ -351,4 +351,9 @@
   }
   /* 列表 end */
 
+  /*提示信息*/
+  ._v-container>._v-content>.loading-layer>.no-data-text.active,
+  ._v-container>._v-content>.loading-layer>.spinner-holder.active{
+    margin-top: 7px;
+  }
 </style>
