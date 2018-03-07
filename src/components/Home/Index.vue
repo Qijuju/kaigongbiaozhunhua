@@ -29,31 +29,37 @@
     <!-- 要滚动的内容 -->
     <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myscroller">
       <div class="list" v-if="toDoWorkIsShow">
-        <div class="listItem" v-for="item in ToDoWorkflowList">
-          <p>{{item.requestName}}</p>
-          <p>{{item.workflowName}}</p>
-          <p>{{item.currentNodeName}}</p>
-          <p>{{item.creatorName}}</p>
+        <div class="listItem" v-for="item in ToDoWorkflowList" >
+          <div @click="toDetail(item.url)">
+          <p>流程标题：{{item.requestName}}</p>
+          <p>流程类型：{{item.workflowName}}</p>
+          <p>流程状态：{{item.currentNodeName}}</p>
+          <p>审批人：{{item.creatorName}}</p>
+          </div>
         </div>
       </div>
       <div class="list" v-if="doneWorkIsShow">
         <div class="listItem" v-for="item in ToDoWorkflowList">
-          <p>{{item.requestName}}</p>
-          <p>{{item.workflowName}}</p>
-          <p>{{item.currentNodeName}}</p>
-          <p>{{item.creatorName}}</p>
+          <div @click="toDetail(item.url)">
+          <p>流程标题：{{item.requestName}}</p>
+          <p>流程类型：{{item.workflowName}}</p>
+          <p>流程状态：{{item.currentNodeName}}</p>
+          <p>审批人：{{item.creatorName}}</p>
+          </div>
         </div>
       </div>
       <div class="list" v-if="iStartedIsShow">
         <div class="listItem" v-for="item in ToDoWorkflowList">
-          <p>{{item.requestName}}</p>
-          <p>{{item.workflowName}}</p>
-          <p>{{item.currentNodeName}}</p>
-          <p>{{item.creatorName}}</p>
+          <div @click="toDetail(item.url)">
+          <p>流程标题：{{item.requestName}}</p>
+          <p>流程类型：{{item.workflowName}}</p>
+          <p>流程状态：{{item.currentNodeName}}</p>
+          <p>审批人：{{item.creatorName}}</p>
+          </div>
         </div>
       </div>
     </scroller>
-
+    <iframe  style="margin-top:93px;width:100%;height:1000px;display:none" src="http://whjjgc.r93535.com:89/verifyLogin.do?loginid=419448de-aaa3-44d4-99b8-8002a5efe029"></iframe>
   </div>
 </template>
 
@@ -74,16 +80,18 @@
         count:3,       // 待我审批的数量
         pageNo : 1,   // 请求页码
         pageSize:7, // 每页请求数据的条数
-        workflowTypeId:18,// 流程分类id 。 17代表：开工标准化； 18代表：安全风险管理
+        requestName:'',
+        workflowTypeId:17,// 流程分类id 。 17代表：开工标准化； 18代表：安全风险管理
+        workflowId:'',
         ToDoWorkflowList: [],  // 待办流程列表数据
         searchTab1:false,
         searchTab2:false,
-        baseuserId:102300,
+        baseuserId:222459,
         noData: '',
         toDoWorkIsShow:true,
         doneWorkIsShow:false,
         iStartedIsShow:false,
-
+        isArchived:false
       }
     },
     components:{
@@ -94,20 +102,76 @@
     mounted:function () {
       this.getCount();
       this.getToDoWorkflowList(); // 获取‘待我审批’字典
+      /*$('.p').each(function (i) {
+        var txtL=$($('.p')[i]).text().length;
+        if(txtL>8){
+          $($('.p')[i]).addClass('wordBreak')
+        }else {
+          $($('.p')[i]).removeClass('wordBreak')
+        }
+      })*/
+    },
+    watch: {
+      $route: function (to, from) {
+        console.log("watch函数............")
+        if(to.path==='/Home'){
+          var data = to.query;
+          if(from.path==='/Home/search'){
+            this.requestName=data.requestName
+            this.getToDoWorkflowList(); // 获取‘待我审批’字典
+          }
+          if(from.path==='/Home/filter'){
+            if(this.doneWorkIsShow===true&&data.isArchived==='true'){
+              this.isArchived=true
+            }else{
+              this.isArchived=false
+            }
+            this.workflowId=data.workflowId
+            this.getToDoWorkflowList();
+          }
+          if(from.path==='/Home/detail'){
+            this.getToDoWorkflowList();
+          }
+        }
+      }
     },
     methods:{
+      toDetail(url){
+        var query={
+          url:url
+        }
+        this.$router.push({path:'/Home/detail',query:query});
+      },
       // 获取‘待我审批’字典
       getToDoWorkflowList(){
         let vm = this;
         vm.pageNo = 1;
-        var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
+        var url = this.getUrl()
+        //var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
         axios.get(url).then(response => {
           vm.ToDoWorkflowList = response.data;
           console.log("待我审批的列表数据："+JSON.stringify(vm.ToDoWorkflowList));
-
         }).catch(err => {
           console.error(err.message)
         })
+      },
+      getUrl(){
+        var url=''
+        if(this.toDoWorkIsShow===true){
+          url= 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ this.baseuserId+'&pageNo='+this.pageNo+'&workflowTypeId='+ this.workflowTypeId+'&pageSize=' + this.pageSize+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+        }
+        if(this.doneWorkIsShow===true){
+          if(this.isArchived===false){
+            url='http://whjjgc.r93535.com/DoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+          }else{
+            url='http://whjjgc.r93535.com/YiDoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+          }
+        }
+        if(this.iStartedIsShow===true){
+            url='http://whjjgc.r93535.com/MyWorkflowRequestList?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+        }
+        console.log(url)
+        return url
       },
       // 刷新首页数据
       refresh(done) {
@@ -116,7 +180,6 @@
         setTimeout(() => {
           this.$refs.myscroller.resize(); // 加载图标1.5s后消失
         }, 1500)
-
         done() // call done
       },
 
@@ -130,7 +193,8 @@
         }
         let vm = this;
         vm.pageNo++;
-        var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' +vm.pageSize;
+        var url=this.getUrl()
+        //var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' +vm.pageSize;
         axios.get(url).then((response) => {
           let arr = response.data; // 请求数据的条数
           setTimeout(() => {
@@ -167,22 +231,24 @@
       handleTabClick(index) {
         let  vm=this;
         vm.active = index;
-
         switch (index){
           case 0:
             vm.toDoWorkIsShow = true;
             vm.doneWorkIsShow = false;
             vm.iStartedIsShow = false;
+            this.getToDoWorkflowList()
             break;
           case 1:
             vm.toDoWorkIsShow = false;
             vm.doneWorkIsShow = true;
             vm.iStartedIsShow = false;
+            this.getToDoWorkflowList()
             break;
           case 2:
             vm.toDoWorkIsShow = false;
             vm.doneWorkIsShow = false;
             vm.iStartedIsShow = true;
+            this.getToDoWorkflowList()
             break;
           default:
             break;
@@ -191,7 +257,7 @@
       // 获取待我审批的数量
       getCount(){
         let vm = this;
-        let url = 'http://whjjgc.r93535.com/GetToDoWorkflowCount?baseuserId=236215&workflowTypeId=17';
+        let url = 'http://whjjgc.r93535.com/GetToDoWorkflowCount?baseuserId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId;
         vm.$http.get(url).then((response) => {
           vm.count = response.data;
         }, (response) => {
@@ -208,12 +274,22 @@
         })
 
         if (num===0){
-          this.$router.push({path:'/Home/search'});
+          var query={
+            toDoWorkIsShow:this.toDoWorkIsShow,
+            doneWorkIsShow:this.doneWorkIsShow,
+            iStartedIsShow:this.iStartedIsShow,
+          }
+          this.$router.push({path:'/Home/search',query:query});
           this.searchTab1 = true;
           this.searchTab2 = false;
 
         }else if (num===1){
-          this.$router.push({path:'/Home/filter'});
+          /*this.$store.commit('setHomeFilter',{doneWorkIsShow:this.doneWorkIsShow,isArchived:this.isArchived});*/
+          var query={
+            doneWorkIsShow:this.doneWorkIsShow,
+            isArchived:this.isArchived
+          }
+          this.$router.push({path:'/Home/filter',query:query});
           this.searchTab1 = false;
           this.searchTab2 = true;
         }

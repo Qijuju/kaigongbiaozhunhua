@@ -1,0 +1,44 @@
+<template>
+  <div>
+    <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft" ></van-nav-bar>
+    <iframe  style="margin-top:93px;width:100%;height:1000px;" :src="url"></iframe>
+  </div>
+</template>
+
+<script>
+    export default {
+        name: "HomeDetail",
+      data() {
+        return {
+          url:''
+        }
+      },
+      mounted: function() {
+        var data = this.$route.query
+        this.url=data.url
+      },
+      watch: {
+        $route: function (to, from) {
+          console.log("watch函数............")
+          if(to.path==='/Home/detail'){
+            var data = to.query;
+            this.url=data.url
+          }
+        }
+      },
+      methods: {
+        // 表头返回按钮事件
+        getUrl() {
+          // Toast('返回');
+          this.$router.push({path: '/Home'});
+        },
+        onClickLeft() {
+          this.$router.push({path: '/Home'});
+        }
+      }
+    }
+</script>
+
+<style scoped>
+
+</style>
