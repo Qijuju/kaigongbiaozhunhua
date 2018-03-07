@@ -108,7 +108,7 @@
         let vm = this;
         vm.page++;
         let url ='http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
-//        http://whjjgc.r93535.com/XmgckgbzhListServlet?baseuserid=102300&xmmc=&xmgljg=
+
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
           let newData = response.data.data; // 请求数据

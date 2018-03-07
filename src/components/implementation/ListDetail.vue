@@ -8,8 +8,6 @@
     >
     </van-nav-bar>
 
-    <!--<Header v-bind:title="proName"></Header> &lt;!&ndash; v-bind:title="proName2" 对title的值进行v-bind动态绑定&ndash;&gt;-->
-
     <!--内容区域-->
     <div class="content">
       <van-row>
