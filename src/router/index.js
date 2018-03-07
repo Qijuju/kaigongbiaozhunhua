@@ -5,6 +5,7 @@ import VueRouter from 'vue-router'
 import Home from '../components/Home/Index'
 import HomeSearch from '../components/Home/Search'
 import HomeFifter from '../components/Home/Filter'
+import HomeDetail from '../components/Home/Detail'
 
 // 落实情况
 import LSQKIndex from '../components/implementation/Index'
@@ -46,6 +47,11 @@ const router = new VueRouter({
       path: '/Home/filter',
       name: 'HomeFifter',
       component: HomeFifter
+    },
+    {
+      path: '/Home/detail',
+      name: 'HomeDetail',
+      component: HomeDetail
     },
     //  落实情况
     {
