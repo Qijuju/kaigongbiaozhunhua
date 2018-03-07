@@ -200,7 +200,7 @@
   }
   .van-col{
     height:44px;
-    padding:0;
+    padding:0 5px;
     line-height:44px;
     /* 折行显示 */
     white-space: normal;

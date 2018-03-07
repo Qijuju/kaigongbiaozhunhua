@@ -23,7 +23,7 @@
           <div class="main">
             <div class="showHide">
               <van-row>
-                <van-col span="24">土地预审批复</van-col>
+                <van-col span="24" class="conpad">土地预审批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -45,7 +45,7 @@
 
 
               <van-row>
-                <van-col span="24">环评批复</van-col>
+                <van-col span="24" class="conpad">环评批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -65,7 +65,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">节能批复</van-col>
+                <van-col span="24" class="conpad">节能批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -85,7 +85,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见</van-col>
+                <van-col span="24" class="conpad">社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -105,7 +105,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">可研批复</van-col>
+                <van-col span="24" class="conpad">可研批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -125,7 +125,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">项目资金计划和其他建设资金计划落实</van-col>
+                <van-col span="24" class="conpad">项目资金计划和其他建设资金计划落实</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -147,7 +147,7 @@
 
             <div class="showHide" hidden>
               <van-row>
-                <van-col span="24">银行贷款合同签订，或银行评审通过</van-col>
+                <van-col span="24" class="conpad">银行贷款合同签订，或银行评审通过</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -169,7 +169,7 @@
 
             <div class="showHide" hidden>
               <van-row>
-                <van-col span="24">初步设计批复</van-col>
+                <van-col span="24" class="conpad">初步设计批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -191,7 +191,7 @@
 
             <div class="showHide" hidden>
               <van-row>
-                <van-col span="24">签修改算核备</van-col>
+                <van-col span="24" class="conpad">签修改算核备</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -211,7 +211,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">项目法人或者项目管理机构成立</van-col>
+                <van-col span="24" class="conpad">项目法人或者项目管理机构成立</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -231,7 +231,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">建设用地或先行开工工点建设用地批复</van-col>
+                <van-col span="24" class="conpad">建设用地或先行开工工点建设用地批复</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -251,7 +251,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">与设计单位签订设计图纸交付协议</van-col>
+                <van-col span="24" class="conpad">与设计单位签订设计图纸交付协议</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -271,7 +271,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">施工图审核完成</van-col>
+                <van-col span="24" class="conpad">施工图审核完成</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -291,7 +291,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">施工图预算核备</van-col>
+                <van-col span="24" class="conpad">施工图预算核备</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -311,7 +311,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">施组大纲编制完成</van-col>
+                <van-col span="24" class="conpad">施组大纲编制完成</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -331,7 +331,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24">主体工程或工点施工、监理单位招标完成，并发中标通知书</van-col>
+                <van-col span="24" class="conpad">主体工程或工点施工、监理单位招标完成，并发中标通知书</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -552,5 +552,9 @@
   }
   /* 重写 end */
 
+/*修改内容样式*/
+  .conpad{
+    padding: 0 10px;
+  }
 
 </style>

@@ -2,7 +2,7 @@
   <div class="projectIndex">
     <Header title="项目工程开工标准化"></Header>
     <div class="content">
-      <scroller :on-infinite="infinite" :on-refresh="refresh" ref="myProjectScroller">
+      <scroller style="margin-top:-44px !important;" :on-infinite="infinite" :on-refresh="refresh" ref="myProjectScroller">
 
         <div class="box">
           <div class="innerBox clearfix" v-for="list in lists">
@@ -193,5 +193,4 @@
     float: left;
     margin-left:-40px;
   }
-
 </style>
