@@ -13,6 +13,7 @@
           url:''
         }
       },
+
       mounted: function() {
         var data = this.$route.query
         this.url=data.url
