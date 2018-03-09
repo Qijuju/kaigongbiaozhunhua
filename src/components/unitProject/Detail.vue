@@ -217,6 +217,9 @@
     -ms-word-break: break-all;
     word-break: break-all;
   }
+  .van-col-24{
+    padding: 0;
+  }
   .van-col:nth-child(odd){
     background: #E5F2FA;
     border-right:1px solid #ccc;
