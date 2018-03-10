@@ -10,22 +10,28 @@
 
     <!--内容区域-->
     <div class="content">
-      <div @click="isShowPicker()">
-      <van-row>
-        <van-field
-          v-bind:value="mytab"
-          placeholder="统计处"
-          disabled
-        />
-      </van-row>
-      </div>
-      <van-row v-show="showPicker">
-        <van-col>
-          <van-picker :columns="tabs" @change="onChange"
-                      visible-item-count=3 v-bind:mytab="mytab"/>
-        </van-col>
-      </van-row>
-      <van-row>
+      <select name="bendi" id="bendi" style="width: 100%;height:35px">
+        <option value="0" selected >统计处</option>
+        <option value="1" >财务处</option>
+        <option value="2" >总工程师室</option>
+        <option value="3" >建设处</option>
+      </select>
+      <!--<div @click="isShowPicker()">-->
+      <!--<van-row>-->
+        <!--<van-field-->
+          <!--v-bind:value="mytab"-->
+          <!--placeholder="统计处"-->
+          <!--disabled-->
+        <!--/>-->
+      <!--</van-row>-->
+      <!--</div>-->
+      <!--<van-row v-show="showPicker">-->
+        <!--<van-col>-->
+          <!--<van-picker :columns="tabs" @change="onChange"-->
+                      <!--visible-item-count=3 v-bind:mytab="mytab"/>-->
+        <!--</van-col>-->
+      <!--</van-row>-->
+      <!--<van-row>-->
         <!--<van-col span="4">
           <div class="tab bg" @click="showPart(0)"><span>统计处</span></div>
           <div class="tab" @click="showPart(1)"><span>财务处</span></div>
