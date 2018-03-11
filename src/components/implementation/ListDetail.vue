@@ -10,11 +10,10 @@
 
     <!--内容区域-->
     <div class="content">
-      <select name="bendi" id="bendi" style="width: 100%;height:35px">
-        <option value="0" selected >统计处</option>
-        <option value="1" >财务处</option>
-        <option value="2" >总工程师室</option>
-        <option value="3" >建设处</option>
+      <select v-model="selected" @change="showPart(selected)" style="width: 100%;height:35px;">
+        <option v-for="(item,index) in headData" :value="index">
+          {{ item.value }}
+        </option>
       </select>
       <!--<div @click="isShowPicker()">-->
       <!--<van-row>-->
@@ -389,6 +388,16 @@
         showPicker:false,
         mytab:'统计处',
         tabs:['统计处','财务处','总工程师室','建设处'],
+        headData: [{
+          value: '统计处'
+        }, {
+          value: '财务处'
+        },{
+          value: '总工程师室'
+        },{
+          value: '建设处'
+        }],
+        selected: '',
         xmmc:'',
         xmid:'',
         selected:0,
@@ -423,28 +432,25 @@
         this.$router.push({path: '/implementation/index'});
       },
       showPart(num){
-
         switch (num){
           case 0:
-            this.getPartOneData();
+            this.getPartOneData(0);
             break;
           case 1:
-            this.getPartTwoData();
+            this.getPartTwoData(1);
             break;
           case 2:
-            this.getPartThreeData();
+            this.getPartThreeData(2);
             break;
           case 3:
-            this.getPartFourData();
+            this.getPartFourData(3);
             break;
           default:
             break;
 
         }
-        $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
+        // $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
         $($('.showHide')[num]).show().siblings().hide();
-
-
       },
       // 获取列表数据
       getPartOneData(xmid){
@@ -550,7 +556,7 @@
   }
   .tab{
     width:100%;
-    border:1px solid #ccc;
+    /*border:1px solid #ccc;*/
     margin-top:-1px;
   }
   .tab>span{
@@ -587,17 +593,46 @@
     line-height:20px;
   }
   .van-col.van-col-16{
-    height:40px;
+    height:39px;
     margin-bottom:-1px;
+    padding: 0 5px;
   }
   .van-switch{
     margin-top:4px;
   }
   /* 重写 end */
 
-/*修改内容样式*/
+
+
+  .van-col:nth-child(odd){
+    background: #E5F2FA;
+    border-right:1px solid #ccc;
+    text-align: center;
+  }
+  .van-col:nth-child(even){
+    border-right:1px solid #ccc;
+    text-align: left;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    background-color: #fff;
+  }
+
+  .van-col.van-col-24 span{
+    display: inline-block;;
+    width:100%;
+    height:100%;
+    background: #fff;
+  }
+  /*修改内容样式*/
   .conpad{
     padding: 0 10px;
   }
+  selection {
+    appearance:none;
+    -moz-appearance: none; /* Firefox */
+    -webkit-appearance:none; /* Safari 和 Chrome */
+  }
+
 
 </style>
