@@ -628,11 +628,5 @@
   .conpad{
     padding: 0 10px;
   }
-  selection {
-    appearance:none;
-    -moz-appearance: none; /* Firefox */
-    -webkit-appearance:none; /* Safari 和 Chrome */
-  }
-
-
+  
 </style>
