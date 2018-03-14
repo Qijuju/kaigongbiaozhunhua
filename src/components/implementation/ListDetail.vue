@@ -516,7 +516,6 @@
           vm.lists4.szdgbzlsqk = vm.lists4.szdgbzlsqk == '1'?true:false;
           vm.lists4.ztgclsqk = vm.lists4.ztgclsqk == '1'?true:false;
 
-          console.log("444-获取详情页免得数据源："+JSON.stringify(this.lists4));
         }).catch(err => {
           console.error(err.message)
         })
@@ -628,5 +627,5 @@
   .conpad{
     padding: 0 10px;
   }
-  
+
 </style>
