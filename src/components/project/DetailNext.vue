@@ -87,6 +87,8 @@
     name: "detailNext",
     data() {
       return {
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         type:2,
         xmid:-1,
         detailNextData:{}, // 详情数据
@@ -119,7 +121,7 @@
     methods:{
       getDetailData(){
         let vm = this;
-        let url = 'http://whjjgc.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
+        let url = 'http://'+this.domainName+'/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
 
         console.log("项目第2页详情页面："+url);
         axios.get(url).then(response => {

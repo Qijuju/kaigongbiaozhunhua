@@ -44,6 +44,8 @@
       return {
         type:1,
         baseuserId:102300, // 人员id（基础平台的）
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         page:1,             // 当前页码
         pageSize:10,        // 每页显示的数据
         noData:'',          // 是否还有更多的数据
@@ -91,7 +93,7 @@
         let vm=this;
         vm.page=1;
 
-        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url='http://'+this.domainName+'/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
         console.log("获取列表数据url："+url);
 
         axios.get(url)
@@ -102,7 +104,6 @@
 
             // 判断是否还有更多的数据
             vm.noData = thisCount < vm.pageSize ? '没有更多数据' : '';
-            console.log("vm.noData ：" +vm.noData);
 
           }).catch(err => {
           console.error(err.message)
@@ -136,7 +137,7 @@
         vm.page++;
         console.log("我的页码为：" +vm.page);
 
-        let url='http://whjjgc.r93535.com/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url='http://'+this.domainName+'/BdgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.bdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数

@@ -44,6 +44,8 @@
     data() {
       return {
         baseuserId:102300, // 人员id（基础平台的）
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         type:1,
         page:1, // 当前页码
 
@@ -110,7 +112,7 @@
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&dwgc='+vm.dwgcId;
+        let url='http://'+this.domainName+'/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&dwgc='+vm.dwgcId;
 
         console.log("单位列表数据请求的url："+url);
         axios.get(url)
@@ -151,7 +153,7 @@
         }
         let vm = this;
         vm.page++;
-        let url ='http://whjjgc.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url ='http://'+this.domainName+'/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数

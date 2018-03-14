@@ -30,7 +30,7 @@
                       <!--visible-item-count=3 v-bind:mytab="mytab"/>-->
         <!--</van-col>-->
       <!--</van-row>-->
-      <!--<van-row>-->
+      <van-row>
         <!--<van-col span="4">
           <div class="tab bg" @click="showPart(0)"><span>统计处</span></div>
           <div class="tab" @click="showPart(1)"><span>财务处</span></div>
@@ -51,7 +51,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists1.tdyspflsqk)"/> <!--<van-switch v-model="lists1.tdyspflsqk" />--></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.tdyspflsqk)"/>
+                      <!--<van-switch v-model="lists1.tdyspflsqk" />-->
+                    </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -59,8 +61,6 @@
                   </van-row>
                 </van-col>
               </van-row>
-
-
 
               <van-row>
                 <van-col span="24" class="conpad">环评批复</van-col>
@@ -103,7 +103,9 @@
               </van-row>
 
               <van-row>
-                <van-col span="24" class="conpad">社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见</van-col>
+                <van-col span="24" class="conpad">
+                  社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见
+                </van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -153,7 +155,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists1.xmzjjhlsqk)"/> <!--<van-switch v-model="lists1.xmzjjhlsqk" />--></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.xmzjjhlsqk)"/>
+                      <!--<van-switch v-model="lists1.xmzjjhlsqk" />-->
+                    </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -299,7 +303,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <span v-html="mySwitch(lists4.sgtshwclsqk)"/><!--<van-switch v-model="lists4.sgtshwcbz" />--></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.sgtshwclsqk)"/>
+                      <!--<van-switch v-model="lists4.sgtshwcbz" />-->
+                    </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -319,7 +325,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists4.sgtyshdlsql)"/> <!--<van-switch v-model="lists4.sgtyshdlsql" />--></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists4.sgtyshdlsql)"/>
+                      <!--<van-switch v-model="lists4.sgtyshdlsql" />-->
+                    </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -373,7 +381,7 @@
         </van-col>
       </van-row>
     </div>
-  </div>
+    </div>
 </template>
 
 <script>
@@ -385,6 +393,8 @@
     name: "listDetail",
     data(){
       return{
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         showPicker:false,
         mytab:'统计处',
         tabs:['统计处','财务处','总工程师室','建设处'],
@@ -455,7 +465,7 @@
       // 获取列表数据
       getPartOneData(xmid){
         let vm = this;
-        let url= 'http://whjjgc.r93535.com/XmkgtjlsqkServlet?type=1&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=1&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists1 = response.data[0];
@@ -474,7 +484,7 @@
       },
       getPartTwoData(xmid){
         let vm = this;
-        let url= 'http://whjjgc.r93535.com/XmkgtjlsqkServlet?type=2&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=2&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists2 = response.data[0];
@@ -488,7 +498,7 @@
       },
       getPartThreeData(xmid){
         let vm = this;
-        let url= 'http://whjjgc.r93535.com/XmkgtjlsqkServlet?type=3&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=3&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists3 = response.data[0];
@@ -502,7 +512,7 @@
       },
       getPartFourData(xmid){
         let vm = this;
-        let url= 'http://whjjgc.r93535.com/XmkgtjlsqkServlet?type=4&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=4&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists4 = response.data[0];

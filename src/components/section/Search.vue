@@ -84,6 +84,7 @@
     data() {
       return {
         baseuserId:102300,
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         visibleItemCount:3,
 
         xmgljgIsShow:false,// 项目管理机构选项是否显示
@@ -168,7 +169,7 @@
       //  项目管理机构字典数据
       getXMGLLGDict(){
         let vm=this;
-        let url ='http://whjjgc.r93535.com/XmgljgServlet?baseuserid='+vm.baseuserId;
+        let url ='http://'+this.domainName+'/XmgljgServlet?baseuserid='+vm.baseuserId;
         console.log("项目字典数据url:"+url);
         axios.get(url)
           .then(response => {
@@ -187,7 +188,7 @@
       // 项目字典数据
       getXMMCDict(){
         let vm=this;
-        let url ='http://whjjgc.r93535.com/XiangmuServlet?baseuserid='+vm.baseuserId+'&orgid=265&xmgljg='+vm.xmgljgId;
+        let url ='http://'+this.domainName+'/XiangmuServlet?baseuserid='+vm.baseuserId+'&orgid=265&xmgljg='+vm.xmgljgId;
         console.log("项目字典数据url:"+url);
         axios.get(url)
           .then(response => {
@@ -207,7 +208,7 @@
       //  合同标段字典
       getHTBDDict(){
         let vm=this;
-        let url='http://whjjgc.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId;
+        let url='http://'+this.domainName+'/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId;
 
         axios.get(url)
           .then(response => {

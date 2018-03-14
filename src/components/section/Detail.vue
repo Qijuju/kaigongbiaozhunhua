@@ -119,6 +119,7 @@
     name: "detail",
     data() {
       return {
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         id:-1, // 标段id
         type:1, // 移动端
         detailData:{}, // 详情数据
@@ -153,7 +154,7 @@
       // 根据标段id获取详情页数据
       getDetailData(){
         let vm = this;
-        let url='http://whjjgc.r93535.com/BdgckgbzhServlet?bdid='+vm.id+'&type='+vm.type;
+        let url='http://'+this.domainName+'/BdgckgbzhServlet?bdid='+vm.id+'&type='+vm.type;
         console.log("请求标段详情数据第一页数据的url："+url);
         axios.get(url).then(response => {
           vm.detailData = response.data[0];

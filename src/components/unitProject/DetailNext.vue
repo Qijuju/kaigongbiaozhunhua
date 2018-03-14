@@ -256,6 +256,8 @@
     name: "detailNext",
     data() {
       return {
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         type:2,
         dwgcId:-1,
         checked:false,
@@ -286,13 +288,11 @@
       // 根据单位工程的id获取详情数据
       getDetailData(){
         let vm = this;
-        console.log("走进来了吗？"+vm.dwgcId);
-        let url = 'http://whjjgc.r93535.com/DwgckgbzhServlet?type='+vm.type+'&dwgcid='+vm.dwgcId;
-        console.log("获取单位工程第2页请求的url为："+ url);
+        let url = 'http://'+this.domainName+'/DwgckgbzhServlet?type='+vm.type+'&dwgcid='+vm.dwgcId;
+
 
         axios.get(url).then(response => {
           vm.detailNextData = response.data[0];
-          console.log("获取单位工程详情第2页的数据："+JSON.stringify(vm.detailNextData));
 
           // 施工单位架子队
           vm.detailNextData.sgdwjzsg = vm.detailNextData.sgdwjzsg == '1'?true:false;

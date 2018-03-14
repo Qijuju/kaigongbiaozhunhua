@@ -59,7 +59,7 @@
         </div>
       </div>
     </scroller>
-    <iframe  style="margin-top:93px;width:100%;height:1000px;display:none" src="http://whjjgc.r93535.com:89/verifyLogin.do?loginid=419448de-aaa3-44d4-99b8-8002a5efe029"></iframe>
+    <iframe  style="margin-top:93px;width:100%;height:1000px;display:none" src="http://tljjgxt.r93535.com:89/verifyLogin.do?loginid=419448de-aaa3-44d4-99b8-8002a5efe029"></iframe>
   </div>
 </template>
 
@@ -87,6 +87,8 @@
         searchTab1:false,
         searchTab2:false,
         baseuserId:222459,
+        domainName:'tljjgxt.r93535.com', // 请求接口的域名
+
         noData: '',
         toDoWorkIsShow:true,
         doneWorkIsShow:false,
@@ -151,7 +153,7 @@
         let vm = this;
         vm.pageNo = 1;
         var url = this.getUrl()
-        //var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
+        //var url = 'http://'+this.domainName+'/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' + vm.pageSize;
         axios.get(url).then(response => {
           vm.ToDoWorkflowList = response.data;
           console.log("待我审批的列表数据："+JSON.stringify(vm.ToDoWorkflowList));
@@ -162,17 +164,17 @@
       getUrl(){
         var url=''
         if(this.toDoWorkIsShow===true){
-          url= 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ this.baseuserId+'&pageNo='+this.pageNo+'&workflowTypeId='+ this.workflowTypeId+'&pageSize=' + this.pageSize+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+          url= 'http://'+this.domainName+'/GetToDoWorkflowList?baseuserId='+ this.baseuserId+'&pageNo='+this.pageNo+'&workflowTypeId='+ this.workflowTypeId+'&pageSize=' + this.pageSize+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
         }
         if(this.doneWorkIsShow===true){
           if(this.isArchived===false){
-            url='http://whjjgc.r93535.com/DoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+            url='http://'+this.domainName+'/DoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
           }else{
-            url='http://whjjgc.r93535.com/YiDoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+            url='http://'+this.domainName+'/YiDoWorkflowListPCServlet?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
           }
         }
         if(this.iStartedIsShow===true){
-            url='http://whjjgc.r93535.com/MyWorkflowRequestList?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
+            url='http://'+this.domainName+'/MyWorkflowRequestList?pageNo='+this.pageNo+'&pageSize='+this.pageSize+'&userId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId+'&requestName=' + this.requestName+'&workflowId=' + this.workflowId;
         }
         console.log(url)
         return url
@@ -198,7 +200,7 @@
         let vm = this;
         vm.pageNo++;
         var url=this.getUrl()
-        //var url = 'http://whjjgc.r93535.com/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' +vm.pageSize;
+        //var url = 'http://'+this.domainName+'/GetToDoWorkflowList?baseuserId='+ vm.baseuserId+'&pageNo='+vm.pageNo+'&workflowTypeId='+ vm.workflowTypeId+'&pageSize=' +vm.pageSize;
         axios.get(url).then((response) => {
           let arr = response.data; // 请求数据的条数
           setTimeout(() => {
@@ -261,7 +263,7 @@
       // 获取待我审批的数量
       getCount(){
         let vm = this;
-        let url = 'http://whjjgc.r93535.com/GetToDoWorkflowCount?baseuserId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId;
+        let url = 'http://'+this.domainName+'/GetToDoWorkflowCount?baseuserId='+this.baseuserId+'&workflowTypeId='+this.workflowTypeId;
         vm.$http.get(url).then((response) => {
           vm.count = response.data;
         }, (response) => {
