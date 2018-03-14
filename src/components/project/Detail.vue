@@ -104,7 +104,6 @@
     name: "search",
     data() {
       return {
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         type:1, // 第一页数据
         xmid:-1,// 项目id
         detailData:{},
@@ -126,7 +125,7 @@
     methods:{
       getDetailData(){
         let vm = this;
-        let url='http://'+this.domainName+'/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
+        let url='http://tljjgxt.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
         console.log("项目详情数据第一页数据的url："+url);
         axios.get(url).then(response => {
           console.log("项目详情第一页的数据："+JSON.stringify(response.data));
@@ -194,9 +193,6 @@
     word-wrap: break-word;
     -ms-word-break: break-all;
     word-break: break-all;
-  }
-  .van-col-24{
-    padding: 0;
   }
   .van-col:nth-child(odd){
     background: #E5F2FA;

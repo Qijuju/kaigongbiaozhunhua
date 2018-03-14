@@ -107,7 +107,6 @@
       return {
 
         baseuserid:102300,
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         visibleItemCount:3,
 
         xmgljgIsShow:false,// 项目管理机构选项是否显示
@@ -222,7 +221,7 @@
       // 项目管理机构字典
       getXMGLLGDict(){
         let vm=this;
-        let url ='http://'+this.domainName+'/XmgljgServlet?baseuserid='+vm.baseuserid;
+        let url ='http://tljjgxt.r93535.com/XmgljgServlet?baseuserid='+vm._GLOBAL.baseUserId;
         axios.get(url)
           .then(response => {
             this.xmgljgArr = response.data;
@@ -238,7 +237,7 @@
       // 项目名称字典
       getXMMCDict(){
         let vm=this;
-        let url ='http://'+this.domainName+'/XiangmuServlet?baseuserid='+vm.baseuserid+'&orgid=265&xmgljg='+vm.xmgljgId;
+        let url ='http://tljjgxt.r93535.com/XiangmuServlet?baseuserid='+vm._GLOBAL.baseUserId+'&orgid=265&xmgljg='+vm.xmgljgId;
 
         axios.get(url)
           .then(response => {
@@ -255,7 +254,7 @@
       // 合同标段字典
       getHTBDDict(){
         let vm=this;
-        let url='http://'+this.domainName+'/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserid;
+        let url='http://tljjgxt.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId;
 
         axios.get(url)
           .then(response => {
@@ -274,7 +273,7 @@
       // 单位工程字典
       getDWGCDict(){
         let vm=this;
-        let url='http://'+this.domainName+'/DanweiServlet?bdid='+vm.htbdId+'&xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserid;
+        let url='http://tljjgxt.r93535.com/DanweiServlet?bdid='+vm.htbdId+'&xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId;
 
         axios.get(url)
           .then(response => {

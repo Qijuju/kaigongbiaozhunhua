@@ -10,26 +10,21 @@
 
     <!--内容区域-->
     <div class="content">
-      <select v-model="selected" @change="showPart(selected)" style="width: 100%;height:35px;">
-        <option v-for="(item,index) in headData" :value="index">
-          {{ item.value }}
-        </option>
-      </select>
-      <!--<div @click="isShowPicker()">-->
-      <!--<van-row>-->
-        <!--<van-field-->
-          <!--v-bind:value="mytab"-->
-          <!--placeholder="统计处"-->
-          <!--disabled-->
-        <!--/>-->
-      <!--</van-row>-->
-      <!--</div>-->
-      <!--<van-row v-show="showPicker">-->
-        <!--<van-col>-->
-          <!--<van-picker :columns="tabs" @change="onChange"-->
-                      <!--visible-item-count=3 v-bind:mytab="mytab"/>-->
-        <!--</van-col>-->
-      <!--</van-row>-->
+      <div @click="isShowPicker()">
+      <van-row>
+        <van-field
+          v-bind:value="mytab"
+          placeholder="统计处"
+          disabled
+        />
+      </van-row>
+      </div>
+      <van-row v-show="showPicker">
+        <van-col>
+          <van-picker :columns="tabs" @change="onChange"
+                      visible-item-count=3 v-bind:mytab="mytab"/>
+        </van-col>
+      </van-row>
       <van-row>
         <!--<van-col span="4">
           <div class="tab bg" @click="showPart(0)"><span>统计处</span></div>
@@ -51,9 +46,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists1.tdyspflsqk)"/>
-                      <!--<van-switch v-model="lists1.tdyspflsqk" />-->
-                    </van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.tdyspflsqk)"/> <!--<van-switch v-model="lists1.tdyspflsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -61,6 +54,8 @@
                   </van-row>
                 </van-col>
               </van-row>
+
+
 
               <van-row>
                 <van-col span="24" class="conpad">环评批复</van-col>
@@ -103,9 +98,7 @@
               </van-row>
 
               <van-row>
-                <van-col span="24" class="conpad">
-                  社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见
-                </van-col>
+                <van-col span="24" class="conpad">社会稳定风险评估、防洪影响、通航论证、地震安全性评估、文物保护影响等其他前置腰间结论性意见</van-col>
               </van-row>
               <van-row>
                 <van-col span="24">
@@ -155,9 +148,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists1.xmzjjhlsqk)"/>
-                      <!--<van-switch v-model="lists1.xmzjjhlsqk" />-->
-                    </van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.xmzjjhlsqk)"/> <!--<van-switch v-model="lists1.xmzjjhlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -303,9 +294,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <span v-html="mySwitch(lists4.sgtshwclsqk)"/>
-                      <!--<van-switch v-model="lists4.sgtshwcbz" />-->
-                    </van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.sgtshwclsqk)"/><!--<van-switch v-model="lists4.sgtshwcbz" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -325,9 +314,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists4.sgtyshdlsql)"/>
-                      <!--<van-switch v-model="lists4.sgtyshdlsql" />-->
-                    </van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists4.sgtyshdlsql)"/> <!--<van-switch v-model="lists4.sgtyshdlsql" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -381,7 +368,7 @@
         </van-col>
       </van-row>
     </div>
-    </div>
+  </div>
 </template>
 
 <script>
@@ -393,21 +380,9 @@
     name: "listDetail",
     data(){
       return{
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
-
         showPicker:false,
         mytab:'统计处',
         tabs:['统计处','财务处','总工程师室','建设处'],
-        headData: [{
-          value: '统计处'
-        }, {
-          value: '财务处'
-        },{
-          value: '总工程师室'
-        },{
-          value: '建设处'
-        }],
-        selected: '',
         xmmc:'',
         xmid:'',
         selected:0,
@@ -442,30 +417,33 @@
         this.$router.push({path: '/implementation/index'});
       },
       showPart(num){
+
         switch (num){
           case 0:
-            this.getPartOneData(0);
+            this.getPartOneData();
             break;
           case 1:
-            this.getPartTwoData(1);
+            this.getPartTwoData();
             break;
           case 2:
-            this.getPartThreeData(2);
+            this.getPartThreeData();
             break;
           case 3:
-            this.getPartFourData(3);
+            this.getPartFourData();
             break;
           default:
             break;
 
         }
-        // $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
+        $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
         $($('.showHide')[num]).show().siblings().hide();
+
+
       },
       // 获取列表数据
       getPartOneData(xmid){
         let vm = this;
-        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=1&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://tljjgxt.r93535.com/XmkgtjlsqkServlet?type=1&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists1 = response.data[0];
@@ -484,7 +462,7 @@
       },
       getPartTwoData(xmid){
         let vm = this;
-        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=2&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://tljjgxt.r93535.com/XmkgtjlsqkServlet?type=2&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists2 = response.data[0];
@@ -498,7 +476,7 @@
       },
       getPartThreeData(xmid){
         let vm = this;
-        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=3&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://tljjgxt.r93535.com/XmkgtjlsqkServlet?type=3&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists3 = response.data[0];
@@ -512,7 +490,7 @@
       },
       getPartFourData(xmid){
         let vm = this;
-        let url= 'http://'+this.domainName+'/XmkgtjlsqkServlet?type=4&xmmcid='+vm.$route.query.xmid;
+        let url= 'http://tljjgxt.r93535.com/XmkgtjlsqkServlet?type=4&xmmcid='+vm.$route.query.xmid;
 
         axios.get(url).then(response => {
           vm.lists4 = response.data[0];
@@ -526,6 +504,7 @@
           vm.lists4.szdgbzlsqk = vm.lists4.szdgbzlsqk == '1'?true:false;
           vm.lists4.ztgclsqk = vm.lists4.ztgclsqk == '1'?true:false;
 
+          console.log("444-获取详情页免得数据源："+JSON.stringify(this.lists4));
         }).catch(err => {
           console.error(err.message)
         })
@@ -565,7 +544,7 @@
   }
   .tab{
     width:100%;
-    /*border:1px solid #ccc;*/
+    border:1px solid #ccc;
     margin-top:-1px;
   }
   .tab>span{
@@ -602,38 +581,15 @@
     line-height:20px;
   }
   .van-col.van-col-16{
-    height:39px;
+    height:40px;
     margin-bottom:-1px;
-    padding: 0 5px;
   }
   .van-switch{
     margin-top:4px;
   }
   /* 重写 end */
 
-
-
-  .van-col:nth-child(odd){
-    background: #E5F2FA;
-    border-right:1px solid #ccc;
-    text-align: center;
-  }
-  .van-col:nth-child(even){
-    border-right:1px solid #ccc;
-    text-align: left;
-    text-overflow: ellipsis;
-    /*white-space: nowrap;*/
-    overflow: hidden;
-    background-color: #fff;
-  }
-
-  .van-col.van-col-24 span{
-    display: inline-block;;
-    width:100%;
-    height:100%;
-    background: #fff;
-  }
-  /*修改内容样式*/
+/*修改内容样式*/
   .conpad{
     padding: 0 10px;
   }

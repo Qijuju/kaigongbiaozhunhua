@@ -35,7 +35,6 @@
     data() {
       return {
         baseuserId:102300, // 人员id（基础平台的）
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         page:1, // 当前页码
 
         pageSize:10, // 每页显示的数据
@@ -67,7 +66,7 @@
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url ='http://'+this.domainName+'/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url ='http://tljjgxt.r93535.com/XmgckgbzhListServlet?baseuserid='+vm._GLOBAL.baseUserId+'&page='+vm.page;
 
         console.log("项目工程开工标准化请求数据的url："+url);
 
@@ -108,7 +107,7 @@
 
         let vm = this;
         vm.page++;
-        let url ='http://'+this.domainName+'/XmgckgbzhListServlet?baseuserid='+vm.baseuserId+'&page='+vm.page;
+        let url ='http://tljjgxt.r93535.com/XmgckgbzhListServlet?baseuserid='+vm._GLOBAL.baseUserId+'&page='+vm.page;
 
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数

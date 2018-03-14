@@ -29,7 +29,6 @@
     data(){
       return{
         baseuserid:102300,
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
         page:1,
         lists:[{'xmmc':'测试项目名称一','id':1},{'xmmc':'测试项目名称二','id':2},{'xmmc':'测试项目名称三','id':3}]
       }
@@ -41,7 +40,7 @@
       // 获取落实情况的列表数据
       getList(){
         let vm = this;
-        let url ='http://'+this.domainName+'/XmkgtjlsqkListServlet?baseuserid='+vm.baseuserid+'&page='+vm.page;
+        let url ='http://tljjgxt.r93535.com/XmkgtjlsqkListServlet?baseuserid='+vm._GLOBAL.baseUserId+'&page='+vm.page;
         axios.get(url).then(response => {
           this.lists = response.data.data;
         }).catch(err => {

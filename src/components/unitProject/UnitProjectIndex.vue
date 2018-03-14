@@ -44,8 +44,6 @@
     data() {
       return {
         baseuserId:102300, // 人员id（基础平台的）
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
-
         type:1,
         page:1, // 当前页码
 
@@ -112,8 +110,7 @@
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url
-        let url='http://'+this.domainName+'/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm.baseuserId+'&dwgc='+vm.dwgcId;
-
+        let url='http://tljjgxt.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId+'&dwgc='+vm.dwgcId+'&page='+vm.page;
         console.log("单位列表数据请求的url："+url);
         axios.get(url)
           .then(response => {
@@ -153,8 +150,8 @@
         }
         let vm = this;
         vm.page++;
-        let url ='http://'+this.domainName+'/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
-
+        let url='http://tljjgxt.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&xmmc='+vm.xmmcId+'&bd='+vm.htbdId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId+'&dwgc='+vm.dwgcId+'&page='+vm.page;
+        //let url ='http://tljjgxt.r93535.com/DwgckgbzhListServlet?type='+vm.type+'&baseuserid='+vm.baseuserId+'&page='+vm.page;
         axios.get(url).then((response) => {
           let thisCount = response.data.thisCount; // 当前请求的数据的条数
           let newData = response.data.data; // 请求数据
@@ -278,6 +275,12 @@
   .innerBox:nth-child(even) .time>p{
     float: left;
     margin-left:-40px;
+  }
+  .van-button--large {
+    width: 100%;
+    height: 50px;
+    line-height: 48px;
+    z-index: 10000;
   }
 
 </style>
