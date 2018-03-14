@@ -298,15 +298,6 @@
       },
     },
     mounted:function () {
-      // 将按钮垂直居中显示
-      for(var i=0;i<$('.van-row').length;i++){
-        var l = $($('.van-row')[i]).height();
-        console.log("每行的高度为：" +l)
-        $($('.switch')[i]).css({
-          'marginTop':(l-33)/2+'px'
-        })
-      };
-
       this.getDetailData();
     },
     methods:{

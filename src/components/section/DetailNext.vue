@@ -239,7 +239,7 @@
       },
     },
     mounted:function () {
-      this.setLineHeight(); // 设置行高
+//      this.setLineHeight(); // 设置行高
       this.getDetailData(); // 获取详情数据
     },
     methods:{
@@ -282,7 +282,7 @@
           console.error(err.message)
         })
       },
-      setLineHeight(){
+     /* setLineHeight(){
         // 将按钮垂直居中显示
         for(var i=0;i<$('.van-row').length;i++){
           var l = $($('.van-row')[i]).height();
@@ -290,7 +290,7 @@
             'marginTop':(l-33)/2+'px'
           })
         }
-      },
+      },*/
       // 返回上一页
       onClickLeft(){
         this.$router.push({path:'/section/detail'});
