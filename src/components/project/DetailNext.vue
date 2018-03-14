@@ -15,7 +15,8 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="detailNextData.zyglrypzjsc" disabled/>
+            <span v-html="mySwitch(detailNextData.zyglrypzjsc)"/>
+            <!--<van-switch v-model="detailNextData.zyglrypzjsc" disabled/>-->
           </div>
 
         </van-col>
@@ -26,7 +27,8 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="detailNextData.jcglzd" disabled/>
+            <span v-html="mySwitch(detailNextData.jcglzd)"/>
+            <!--<van-switch v-model="detailNextData.jcglzd" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -36,7 +38,8 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="detailNextData.zyjxsb" disabled />
+            <span v-html="mySwitch(detailNextData.zyjxsb)"/>
+            <!--<van-switch v-model="detailNextData.zyjxsb" disabled />-->
           </div>
         </van-col>
       </van-row>
@@ -46,7 +49,8 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="detailNextData.zdxszbz" disabled />
+            <span v-html="mySwitch(detailNextData.zdxszbz)"/>
+            <!--<van-switch v-model="detailNextData.zdxszbz" disabled />-->
           </div>
         </van-col>
       </van-row>
@@ -56,7 +60,8 @@
         </van-col>
         <van-col span="6">
           <div class="pSwitch">
-            <van-switch v-model="detailNextData.dlgc" disabled/>
+            <span v-html="mySwitch(detailNextData.dlgc)"/>
+            <!--<van-switch v-model="detailNextData.dlgc" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -67,7 +72,8 @@
         <van-col span="6">
           <div class="pSwitch">
             <div class="innerSwitch">
-              <van-switch v-model="detailNextData.shzc" disabled/>
+              <span v-html="mySwitch(detailNextData.shzc)"/>
+              <!--<van-switch v-model="detailNextData.shzc" disabled/>-->
             </div>
           </div>
         </van-col>
@@ -87,8 +93,6 @@
     name: "detailNext",
     data() {
       return {
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
-
         type:2,
         xmid:-1,
         detailNextData:{}, // 详情数据
@@ -121,7 +125,7 @@
     methods:{
       getDetailData(){
         let vm = this;
-        let url = 'http://'+this.domainName+'/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
+        let url = 'http://tljjgxt.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;
 
         console.log("项目第2页详情页面："+url);
         axios.get(url).then(response => {
@@ -144,6 +148,18 @@
       },
       goPrePage(){
         this.$router.push({path:'/project/detail'});
+      },
+      mySwitch(date){
+        console.log(date)
+        if(date==='0'|date===true|date==='true'){
+          return '√'
+        }
+        else if(date==='1'|date===false|date==='false'){
+          return '×'
+        }
+        else{
+          return '-'
+        }
       }
 
     }

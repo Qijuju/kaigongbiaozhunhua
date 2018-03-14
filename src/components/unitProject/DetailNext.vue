@@ -18,19 +18,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgdwjzsg" disabled/>
+            <span v-html="mySwitch(detailNextData.sgdwjzsg)"/>
+            <!--<van-switch v-model="detailNextData.sgdwjzsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgdwjzsg" disabled/>
+            <span v-html="mySwitch(detailNextData.sgdwjzsg)"/>
+            <!--<van-switch v-model="detailNextData.sgdwjzsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgdwjzjs" disabled/>
+            <span v-html="mySwitch(detailNextData.sgdwjzjs)"/>
+            <!--<van-switch v-model="detailNextData.sgdwjzjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -44,19 +47,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.lsydsg" disabled/>
+            <span v-html="mySwitch(detailNextData.lsydsg)"/>
+            <!--<van-switch v-model="detailNextData.lsydsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.lsydjl" disabled/>
+            <span v-html="mySwitch(detailNextData.lsydjl)"/>
+            <!--<van-switch v-model="detailNextData.lsydjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.lsydjs" disabled/>
+            <span v-html="mySwitch(detailNextData.lsydjs)"/>
+            <!--<van-switch v-model="detailNextData.lsydjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -70,19 +76,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgtwchdsg" disabled/>
+            <span v-html="mySwitch(detailNextData.sgtwchdsg)"/>
+            <!--<van-switch v-model="detailNextData.sgtwchdsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgtwchdjl" disabled/>
+            <span v-html="mySwitch(detailNextData.sgtwchdjl)"/>
+            <!--<van-switch v-model="detailNextData.sgtwchdjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.sgtwchdjs" disabled/>
+            <span v-html="mySwitch(detailNextData.sgtwchdjs)"/>
+            <!--<van-switch v-model="detailNextData.sgtwchdjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -96,19 +105,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.tzzyrysg" disabled />
+            <span v-html="mySwitch(detailNextData.tzzyrysg)"/>
+            <!--<van-switch v-model="detailNextData.tzzyrysg" disabled />-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.tzzyryjl" disabled/>
+            <span v-html="mySwitch(detailNextData.tzzyryjl)"/>
+            <!--<van-switch v-model="detailNextData.tzzyryjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.tzzyryjs" disabled/>
+            <span v-html="mySwitch(detailNextData.tzzyryjs)"/>
+            <!--<van-switch v-model="detailNextData.tzzyryjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -122,19 +134,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.wzcljcsg" disabled/>
+            <span v-html="mySwitch(detailNextData.wzcljcsg)"/>
+            <!--<van-switch v-model="detailNextData.wzcljcsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.wzcljcjl" disabled/>
+            <span v-html="mySwitch(detailNextData.wzcljcjl)"/>
+            <!--<van-switch v-model="detailNextData.wzcljcjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch ">
-            <van-switch v-model="detailNextData.wzcljcjs" disabled/>
+            <span v-html="mySwitch(detailNextData.wzcljcjs)"/>
+            <!--<van-switch v-model="detailNextData.wzcljcjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -148,19 +163,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.jxsbsg" disabled/>
+            <span v-html="mySwitch(detailNextData.jxsbsg)"/>
+            <!--<van-switch v-model="detailNextData.jxsbsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.jxsbjl" disabled/>
+            <span v-html="mySwitch(detailNextData.jxsbjl)"/>
+            <!--<van-switch v-model="detailNextData.jxsbjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.jxsbjs" disabled />
+            <span v-html="mySwitch(detailNextData.jxsbjs)"/>
+            <!--<van-switch v-model="detailNextData.jxsbjs" disabled />-->
           </div>
         </van-col>
       </van-row>
@@ -174,19 +192,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.gystsg" disabled/>
+            <span v-html="mySwitch(detailNextData.gystsg)"/>
+            <!--<van-switch v-model="detailNextData.gystsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.gystjl" disabled/>
+            <span v-html="mySwitch(detailNextData.gystjl)"/>
+            <!--<van-switch v-model="detailNextData.gystjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.gystjs" disabled/>
+            <span v-html="mySwitch(detailNextData.gystjs)"/>
+            <!--<van-switch v-model="detailNextData.gystjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -199,19 +220,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sysbhzsg" disabled/>
+            <span v-html="mySwitch(detailNextData.sysbhzsg)"/>
+            <!--<van-switch v-model="detailNextData.sysbhzsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.sysbhzjl" disabled />
+            <span v-html="mySwitch(detailNextData.sysbhzjl)"/>
+            <!--<van-switch v-model="detailNextData.sysbhzjl" disabled />-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.sysbhzjs" disabled/>
+            <span v-html="mySwitch(detailNextData.sysbhzjs)"/>
+            <!--<van-switch v-model="detailNextData.sysbhzjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -225,19 +249,22 @@
         <van-col span="6">施工单位自验</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.yyxsgsg" disabled/>
+            <span v-html="mySwitch(detailNextData.yyxsgsg)"/>
+            <!--<van-switch v-model="detailNextData.yyxsgsg" disabled/>-->
           </div>
         </van-col>
         <van-col span="6">监理单位审查</van-col>
         <van-col span="2">
           <div class="switch">
-            <van-switch v-model="detailNextData.yyxsgjl" disabled/>
+            <span v-html="mySwitch(detailNextData.yyxsgjl)"/>
+            <!--<van-switch v-model="detailNextData.yyxsgjl" disabled/>-->
           </div>
         </van-col>
         <van-col span="6" class="line">建设单位验收审批</van-col>
         <van-col span="2" class="br">
           <div class="switch">
-            <van-switch v-model="detailNextData.yyxsgjs" disabled/>
+            <span v-html="mySwitch(detailNextData.yyxsgjs)"/>
+            <!--<van-switch v-model="detailNextData.yyxsgjs" disabled/>-->
           </div>
         </van-col>
       </van-row>
@@ -256,8 +283,6 @@
     name: "detailNext",
     data() {
       return {
-        domainName:'tljjgxt.r93535.com', // 请求接口的域名
-
         type:2,
         dwgcId:-1,
         checked:false,
@@ -288,11 +313,13 @@
       // 根据单位工程的id获取详情数据
       getDetailData(){
         let vm = this;
-        let url = 'http://'+this.domainName+'/DwgckgbzhServlet?type='+vm.type+'&dwgcid='+vm.dwgcId;
-
+        console.log("走进来了吗？"+vm.dwgcId);
+        let url = 'http://tljjgxt.r93535.com/DwgckgbzhServlet?type='+vm.type+'&dwgcid='+vm.dwgcId;
+        console.log("获取单位工程第2页请求的url为："+ url);
 
         axios.get(url).then(response => {
           vm.detailNextData = response.data[0];
+          console.log("获取单位工程详情第2页的数据："+JSON.stringify(vm.detailNextData));
 
           // 施工单位架子队
           vm.detailNextData.sgdwjzsg = vm.detailNextData.sgdwjzsg == '1'?true:false;
@@ -342,6 +369,18 @@
       // 返回详情第一页
       onClickLeft(){
        this.$router.push({path:'/unitProject/detail'});
+      },
+      mySwitch(date){
+        console.log(date)
+        if(date==='0'|date===true|date==='true'){
+          return '√'
+        }
+        else if(date==='1'|date===false|date==='false'){
+          return '×'
+        }
+        else{
+          return '-'
+        }
       }
     }
   }
