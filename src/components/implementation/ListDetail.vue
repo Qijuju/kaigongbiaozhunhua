@@ -10,14 +10,34 @@
 
     <!--内容区域-->
     <div class="content">
-      <van-row>
-        <van-col span="4">
+      <select v-model="selected" @change="showPart(selected)" style="width: 100%;height:35px;">
+        <option v-for="(item,index) in headData" :value="index">
+          {{ item.value }}
+        </option>
+      </select>
+      <!--<div @click="isShowPicker()">-->
+      <!--<van-row>-->
+        <!--<van-field-->
+          <!--v-bind:value="mytab"-->
+          <!--placeholder="统计处"-->
+          <!--disabled-->
+        <!--/>-->
+      <!--</van-row>-->
+      <!--</div>-->
+      <!--<van-row v-show="showPicker">-->
+        <!--<van-col>-->
+          <!--<van-picker :columns="tabs" @change="onChange"-->
+                      <!--visible-item-count=3 v-bind:mytab="mytab"/>-->
+        <!--</van-col>-->
+      <!--</van-row>-->
+      <!--<van-row>-->
+        <!--<van-col span="4">
           <div class="tab bg" @click="showPart(0)"><span>统计处</span></div>
           <div class="tab" @click="showPart(1)"><span>财务处</span></div>
           <div class="tab" @click="showPart(2)"><span>总工程师室</span></div>
           <div class="tab" @click="showPart(3)"><span>建设处</span></div>
-        </van-col>
-        <van-col span="20">
+        </van-col>-->
+        <van-col span="24">
           <div class="main">
             <div class="showHide">
               <van-row>
@@ -31,7 +51,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.tdyspflsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.tdyspflsqk)"/> <!--<van-switch v-model="lists1.tdyspflsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -53,7 +73,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.hppflsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.hppflsqk)"/></van-col><!--<van-switch v-model="lists1.hppflsqk" />-->
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -73,7 +93,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.shwddlsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.shwddlsqk)"/> <!--<van-switch v-model="lists1.shwddlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -93,7 +113,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.shwddlsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.shwddlsqk)"/> <!--<van-switch v-model="lists1.shwddlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -113,7 +133,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.kypflsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists1.kypflsqk)"/><!--<van-switch v-model="lists1.kypflsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -133,7 +153,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists1.xmzjjhlsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists1.xmzjjhlsqk)"/> <!--<van-switch v-model="lists1.xmzjjhlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -155,7 +175,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists2.yhdklsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists2.yhdklsqk)"/> <!--<van-switch v-model="lists2.yhdklsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -177,7 +197,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists3.cbsjpflsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists3.cbsjpflsqk)"/><!--<van-switch v-model="lists3.cbsjpflsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -199,7 +219,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.jxgshblsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.jxgshblsqk)"/><!--<van-switch v-model="lists4.jxgshblsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -219,7 +239,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.xmfrlsqk" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists4.xmfrlsqk)"/> <!--<van-switch v-model="lists4.xmfrlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -239,7 +259,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.jsydlsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.jsydlsqk)"/><!--<van-switch v-model="lists4.jsydlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -259,7 +279,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.ysjdwlsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.ysjdwlsqk)"/><!--<van-switch v-model="lists4.ysjdwlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -279,7 +299,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.sgtshwcbz" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.sgtshwclsqk)"/><!--<van-switch v-model="lists4.sgtshwcbz" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -299,7 +319,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.sgtyshdlsql" /></van-col>
+                    <van-col span="16"><span v-html="mySwitch(lists4.sgtyshdlsql)"/> <!--<van-switch v-model="lists4.sgtyshdlsql" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -319,7 +339,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.szdgbzwh" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.szdgbzlsqk)"/><!--<van-switch v-model="lists4.szdgbzwh" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -339,7 +359,7 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"> <van-switch v-model="lists4.ztgclsqk" /></van-col>
+                    <van-col span="16"> <span v-html="mySwitch(lists4.ztgclsqk)"/><!--<van-switch v-model="lists4.ztgclsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
@@ -359,11 +379,25 @@
 <script>
   import axios from 'axios'
   import Header from '../Common/Header'
+  import { Row, Col,Field,Picker } from 'vant';
 
   export default {
     name: "listDetail",
     data(){
       return{
+        showPicker:false,
+        mytab:'统计处',
+        tabs:['统计处','财务处','总工程师室','建设处'],
+        headData: [{
+          value: '统计处'
+        }, {
+          value: '财务处'
+        },{
+          value: '总工程师室'
+        },{
+          value: '建设处'
+        }],
+        selected: '',
         xmmc:'',
         xmid:'',
         selected:0,
@@ -398,28 +432,25 @@
         this.$router.push({path: '/implementation/index'});
       },
       showPart(num){
-
         switch (num){
           case 0:
-            this.getPartOneData();
+            this.getPartOneData(0);
             break;
           case 1:
-            this.getPartTwoData();
+            this.getPartTwoData(1);
             break;
           case 2:
-            this.getPartThreeData();
+            this.getPartThreeData(2);
             break;
           case 3:
-            this.getPartFourData();
+            this.getPartFourData(3);
             break;
           default:
             break;
 
         }
-        $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
+        // $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
         $($('.showHide')[num]).show().siblings().hide();
-
-
       },
       // 获取列表数据
       getPartOneData(xmid){
@@ -489,6 +520,26 @@
         }).catch(err => {
           console.error(err.message)
         })
+      },
+      mySwitch(date){
+        console.log(date)
+        if(date==='0'|date===true|date==='true'){
+          return '√'
+        }
+        else if(date==='1'|date===false|date==='false'){
+          return '×'
+        }
+        else{
+          return '-'
+        }
+      },
+      isShowPicker(){
+        this.showPicker=!this.showPicker
+      },
+      onChange(picker, value, index) {
+        this.mytab=value
+        this.showPart(index)
+        //Toast(`当前值：${value}, 当前索引：${index}`);
       }
     }
   }
@@ -505,7 +556,7 @@
   }
   .tab{
     width:100%;
-    border:1px solid #ccc;
+    /*border:1px solid #ccc;*/
     margin-top:-1px;
   }
   .tab>span{
@@ -542,17 +593,40 @@
     line-height:20px;
   }
   .van-col.van-col-16{
-    height:40px;
+    height:39px;
     margin-bottom:-1px;
+    padding: 0 5px;
   }
   .van-switch{
     margin-top:4px;
   }
   /* 重写 end */
 
-/*修改内容样式*/
+
+
+  .van-col:nth-child(odd){
+    background: #E5F2FA;
+    border-right:1px solid #ccc;
+    text-align: center;
+  }
+  .van-col:nth-child(even){
+    border-right:1px solid #ccc;
+    text-align: left;
+    text-overflow: ellipsis;
+    /*white-space: nowrap;*/
+    overflow: hidden;
+    background-color: #fff;
+  }
+
+  .van-col.van-col-24 span{
+    display: inline-block;;
+    width:100%;
+    height:100%;
+    background: #fff;
+  }
+  /*修改内容样式*/
   .conpad{
     padding: 0 10px;
   }
-
+  
 </style>
