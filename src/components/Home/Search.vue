@@ -5,23 +5,26 @@
     </van-nav-bar>
     <!-- 施工日计划待我审批搜索-表头-结束 -->
     <!-- 施工日计划待我审批搜索-输入项目名称-开始 -->
-    <form action="/">
-      <!--<van-search-->
-      <!--v-model="value"-->
-      <!--placeholder="请输入项目名称"-->
-      <!--show-action-->
-      <!--@search="onSearch"-->
-      <!--@cancel="onCancel"-->
-      <!--/>-->
-      <van-search
-        v-model="requestName"
-        placeholder="请输入流程标题"
-        show-action
-        @search="onSearch"
-      >
-        <div slot="action" @click="onSearch" style="padding: 0 10px;">搜索</div>
-      </van-search>
-    </form>
+    <div class="content">
+      <form action="/">
+        <!--<van-search-->
+        <!--v-model="value"-->
+        <!--placeholder="请输入项目名称"-->
+        <!--show-action-->
+        <!--@search="onSearch"-->
+        <!--@cancel="onCancel"-->
+        <!--/>-->
+        <van-search
+          v-model="requestName"
+          placeholder="请输入流程标题"
+          show-action
+          @search="onSearch"
+        >
+          <div slot="action" @click="onSearch" style="padding: 0 10px;">搜索</div>
+        </van-search>
+      </form>
+    </div>
+
     <!-- 施工日计划待我审批搜索-输入项目名称-结束 -->
   </div>
 </template>
@@ -105,5 +108,10 @@
     color: #fff;
   }
   /* 设置头部 style end */
+  /* 内容区域 */
+  .content{
+    margin-top:46px;
+    margin-bottom:55px;
+  }
 
 </style>

@@ -27,6 +27,11 @@
           }
         }
       },
+      activated: function() {
+        $($('.van-tabbar--fixed')[0]).css({
+          'bottom':'-50px'
+        })
+      },
       methods: {
 
         // 表头返回按钮事件
@@ -36,6 +41,11 @@
         },
         onClickLeft() {
           this.$router.push({path: '/Home'});
+
+          // 修改tabbar的定位
+          $($('.van-tabbar--fixed')[0]).css({
+            'bottom':'0px'
+          })
         },
         //  关闭应用程序。调取JSAPI,关闭应用程序
         onClickRight(){
