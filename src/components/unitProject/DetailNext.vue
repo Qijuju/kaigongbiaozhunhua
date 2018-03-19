@@ -4,6 +4,7 @@
       v-bind:title='detailNextData.dwgcmc' fixed
       left-text="返回"
       @click-left="onClickLeft"
+      right-text="关闭"  @click-right="onClickRight"
     >
     </van-nav-bar>
     <div class="content">
@@ -301,6 +302,11 @@
       this.getDetailData();
     },
     methods:{
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       // 根据单位工程的id获取详情数据
       getDetailData(){
         let vm = this;

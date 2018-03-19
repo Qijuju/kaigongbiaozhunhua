@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft" fixed></van-nav-bar>
+    <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft"  right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
     <iframe  style="margin-top:44px;width:100%;height:1000px;border: 0px" :src="url"></iframe>
   </div>
 </template>
@@ -28,6 +28,7 @@
         }
       },
       methods: {
+
         // 表头返回按钮事件
         getUrl() {
           // Toast('返回');
@@ -35,7 +36,12 @@
         },
         onClickLeft() {
           this.$router.push({path: '/Home'});
-        }
+        },
+        //  关闭应用程序。调取JSAPI,关闭应用程序
+        onClickRight(){
+          RPM.closeApplication();
+        },
+
       }
     }
 </script>

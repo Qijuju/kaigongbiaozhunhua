@@ -1,6 +1,7 @@
 <template>
   <div class="index">
-    <Header title="单位工程开工标准化"></Header>
+    <van-nav-bar title="单位工程开工标准化"  right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
+    <!--<Header title="单位工程开工标准化"></Header>-->
     <div class="content">
       <div class="search">
         <div id="condition" @click="goSearch()">
@@ -99,6 +100,11 @@
       },
     },
     methods:{
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       isEmptyObject(e) {
         var t;
         for (t in e)

@@ -4,6 +4,8 @@
       v-bind:title='detailData.xmmc' fixed
       left-text="返回"
       @click-left="onClickLeft"
+      right-text="关闭"  @click-right="onClickRight"
+
     >
     </van-nav-bar>
 
@@ -123,6 +125,12 @@
       this.getDetailData();
     },
     methods:{
+
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       getDetailData(){
         let vm = this;
         let url='http://tljjgxt.r93535.com/XmgckgbzhServlet?xmmcid='+vm.xmid+'&type='+vm.type;

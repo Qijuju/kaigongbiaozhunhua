@@ -3,7 +3,7 @@
 
     <!--<Header title="项目开工条件落实情况"></Header>-->
     <van-nav-bar
-      v-bind:title="'项目开工条件落实情况'"  fixed
+      v-bind:title="'项目开工条件落实情况'"  right-text="关闭"  @click-right="onClickRight"  fixed
     >
     </van-nav-bar>
 
@@ -37,6 +37,12 @@
       this.getList();
     },
     methods:{
+
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       // 获取落实情况的列表数据
       getList(){
         let vm = this;

@@ -5,6 +5,8 @@
       v-bind:title='detailNextData.bdmc' fixed
       left-text="返回"
       @click-left="onClickLeft"
+      right-text="关闭"  @click-right="onClickRight"
+
     >
     </van-nav-bar>
     <div class="content">
@@ -243,6 +245,12 @@
       this.getDetailData(); // 获取详情数据
     },
     methods:{
+
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       getDetailData(){    // 根据标段id获取详情页数据
         let vm = this;
         let url = 'http://tljjgxt.r93535.com/BdgckgbzhServlet?bdid='+vm.id+'&type=2';

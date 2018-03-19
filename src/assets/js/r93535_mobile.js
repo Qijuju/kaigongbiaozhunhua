@@ -1,5 +1,7 @@
 (function(){
+
     "use strict";
+
     var u = navigator.userAgent, app = navigator.appVersion;
     var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
     var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
@@ -7,25 +9,35 @@
 
     isiOS==true?true:false;
 
+    // 扫描
     e.scanClick=function () { // 调摄像头实现扫描功能
         isiOS?loadURL("scanClick:scanClick"):androidObject.scan();
     };
 
-    e.takePicture=function () { // 调相机实现拍照功能
-      console.log("jsApi拍照函数--哈哈  ---调取成功了");
-        isiOS? loadURL("takePicture:takePicture"):androidObject.photo();
+    // 拍照
+    e.takePicture=function (num,index,bo,url,arrL) { // 调相机实现拍照功能
+      console.log("jsApi拍照函数被调用："+ num +'-'+index);
+        isiOS? loadURL("takePicture:takePicture:"+num+":"+index+':'+bo+':'+arrL+':'+url):androidObject.photo(num,index,bo,url,arrL);
     };
 
-    e.getCurrentPositionInfo=function () { // 获取位置信息
-        loadURL("getCurrentPositionInfo:getCurrentPositionInfo:39.992520,116.336170,描述0;39.992520,116.336170,描述1;39.998293,116.352343,描述2;40.0040871,16.348904,描述3;40.001442, 116.353915,描述4;39.989105,116.353915,描述5;43.989105,119.353915,描述6");
-    };
-    e.selectPhotos=function () { // 从相册中选择照片
-        isiOS? loadURL("selectPhotos:selectPhotos"):androidObject.selectPhoto();
+    // 从相册中选择照片
+    e.selectPhotos=function (num,index,bo,url,arrL) { // 从相册中选择照片
+      console.log("jsApi从相册中选择照片函数被调用："+ num +'-'+index);
+      isiOS? loadURL("selectPhotos:selectPhotos:"+num+":"+index+':'+bo+':'+arrL+':'+url):androidObject.selectPhoto(num,index,bo,url,arrL);
     };
 
-    // e.selectPhotoToLarger=function () { // 放大选中的照片
-    //     isiOS? loadURL("selectPhotoToLarger:selectPhotoToLarger"):androidObject.selectPhoto();
-    // };
+    // 当前位置信息
+    e.getCurrentPositionInfo=function () {
+      isiOS? loadURL("getCurrentPositionInfo:getCurrentPositionInfo:39.992520,116.336170,描述0;39.992520,116.336170,描述1;39.998293,116.352343,描述2;40.0040871,16.348904,描述3;40.001442, 116.353915,描述4;39.989105,116.353915,描述5;43.989105,119.353915,描述6"):androidObject.getCurrentPositionInfo();
+    };
+
+    // 关闭应用程序
+  e.closeApplication=function () {
+    console.log("调取 关闭应用程序");
+    isiOS? loadURL("closeApplication:closeApplication"):androidObject.getStaFromQyy();
+  }
+
+
     function loadURL(url) {
         var iFrame;
         iFrame = document.createElement("iframe");
@@ -39,6 +51,7 @@
         iFrame.parentNode.removeChild(iFrame);
         iFrame = null;
     }
+
     this.RPM=e;
 
 }).call(window);

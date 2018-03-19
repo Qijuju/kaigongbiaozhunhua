@@ -1,7 +1,9 @@
 <template>
   <div class="index">
     <!-- title -->
-    <Header title="开工标准化"></Header>
+    <!--<Header title="开工标准化"></Header>-->
+    <van-nav-bar title="开工标准化"  right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
+
     <!--搜索栏-->
     <div class="tabs">
       <van-tabs @click="handleTabClick">
@@ -141,6 +143,11 @@
       }
     },
     methods:{
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       toDetail(url){
         var query={
           url:url

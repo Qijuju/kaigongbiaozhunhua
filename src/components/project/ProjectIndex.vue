@@ -1,6 +1,8 @@
 <template>
   <div class="projectIndex">
-    <Header title="项目工程开工标准化"></Header>
+    <!--<Header title="项目工程开工标准化"></Header>-->
+    <van-nav-bar title="项目工程开工标准化"  right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
+
     <div class="content">
       <scroller style="margin-top:-44px !important;" :on-infinite="infinite" :on-refresh="refresh" ref="myProjectScroller">
 
@@ -15,6 +17,7 @@
             </div>
           </div>
         </div>
+
       </scroller>
     </div>
   </div>
@@ -61,6 +64,12 @@
       this.getList('','',''); // 获取列表数据
     },
     methods:{
+
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
       // 获取项目首页列表数据源
       getList(xmjgglId,xmmcId,htbdId){
         let vm=this;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft"></van-nav-bar>
+    <van-nav-bar title="详情" left-text="返回" @click-left="onClickLeft" right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
     <div class="content">
       当前用户无授权
     </div>
@@ -21,7 +21,12 @@
     methods: {
       onClickLeft() {
         history.back();
-      }
+      },
+      //  关闭应用程序。调取JSAPI,关闭应用程序
+      onClickRight(){
+        RPM.closeApplication();
+      },
+
     }
   }
 </script>
