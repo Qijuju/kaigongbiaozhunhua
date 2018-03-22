@@ -108,8 +108,8 @@
     },
     mounted:function () {
       this.getXMGLLGDict();
-      this.getXMMCDict();
-      this.getHTBDDict();
+//      this.getXMMCDict();
+//      this.getHTBDDict();
     },
 
     methods:{
@@ -130,6 +130,9 @@
         this.xmgljg = value;
         this.xmgljgId= this.xmgljgArr[index].id; // 获取选中项的id
         this.xmgljgIsShow =false;
+        // 调取获取项目字典接口
+        this.getXMMCDict();
+
 //        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
       // 选择器：确认调取方法：项目名称
@@ -137,6 +140,8 @@
         this.xmmc = value;
         this.xmmcId= this.xmmcArr[index].id;// 获取选中项的id
         this.xmmcIsShow =false;
+        // 调取获取合同标段接口
+        this.getHTBDDict();
       },
       // 选择器：确认调取方法：项目名称
       onHTBDConfirm(value,index) {
@@ -169,7 +174,7 @@
       getXMGLLGDict(){
         let vm=this;
         let url ='http://tljjgxt.r93535.com/XmgljgServlet?baseuserid='+vm._GLOBAL.baseUserId;
-        console.log("项目字典数据url:"+url);
+        console.log("项目管理机构字典数据url:"+url);
         axios.get(url)
           .then(response => {
             vm.xmgljgArr = response.data;
@@ -187,6 +192,7 @@
       // 项目字典数据
       getXMMCDict(){
         let vm=this;
+        console.log("获取项目时候的项目管理机构的id为：" + this.xmgljgId);
         let url ='http://tljjgxt.r93535.com/XiangmuServlet?baseuserid='+vm._GLOBAL.baseUserId+'&orgid=265&xmgljg='+vm.xmgljgId;
         console.log("项目字典数据url:"+url);
         axios.get(url)
@@ -207,8 +213,9 @@
       //  合同标段字典
       getHTBDDict(){
         let vm=this;
+        console.log("获取合同标段字典上连个id：：" + this.xmgljgId+':'+vm.xmmcId);
         let url='http://tljjgxt.r93535.com/BiaoduanServlet?xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId;
-
+        console.log("合同标段字典的url:"+url);
         axios.get(url)
           .then(response => {
             vm.htbdArr = response.data;

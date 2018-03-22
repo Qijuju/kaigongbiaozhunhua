@@ -145,6 +145,9 @@
       },
       // 返回首页调取方法
       onClickLeft(){
+
+        // 清空数据
+        this.detailData={};
         this.$router.push({path:'/project'});
         console.log("取消事件");
       },

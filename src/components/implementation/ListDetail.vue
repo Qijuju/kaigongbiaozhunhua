@@ -16,29 +16,7 @@
           {{ item.value }}
         </option>
       </select>
-
-      <!--<div @click="isShowPicker()">-->
-      <!--<van-row>-->
-        <!--<van-field-->
-          <!--v-bind:value="mytab"-->
-          <!--placeholder="统计处"-->
-          <!--disabled-->
-        <!--/>-->
-      <!--</van-row>-->
-      <!--</div>-->
-      <!--<van-row v-show="showPicker">-->
-        <!--<van-col>-->
-          <!--<van-picker :columns="tabs" @change="onChange"-->
-                      <!--visible-item-count=3 v-bind:mytab="mytab"/>-->
-        <!--</van-col>-->
-      <!--</van-row>-->
       <van-row>
-        <!--<van-col span="4">
-          <div class="tab bg" @click="showPart(0)"><span>统计处</span></div>
-          <div class="tab" @click="showPart(1)"><span>财务处</span></div>
-          <div class="tab" @click="showPart(2)"><span>总工程师室</span></div>
-          <div class="tab" @click="showPart(3)"><span>建设处</span></div>
-        </van-col>-->
         <van-col span="24">
           <div class="main">
             <div class="showHide">
@@ -49,7 +27,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.tdyspfiwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.tdyspfiwh)'>{{lists1.tdyspfiwh}}</span>
+                    </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -57,7 +37,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.tdyspfbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.tdyspfbz)'> {{lists1.tdyspfbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -71,7 +53,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.hppfwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.hppfwh)'>{{lists1.hppfwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -79,7 +63,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.hppfbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.hppfbz)'>{{lists1.hppfbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -90,16 +76,20 @@
               <van-row>
                 <van-col span="24">
                   <van-row>
-                    <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.jnpfwh}}</van-col>
+                    <van-col span="8" >文号</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.jnpfwh)'>{{lists1.jnpfwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
-                    <van-col span="16"><span v-html="mySwitch(lists1.shwddlsqk)"/> <!--<van-switch v-model="lists1.shwddlsqk" />--></van-col>
+                    <van-col span="16" ><span v-html="mySwitch(lists1.shwddlsqk)"/> <!--<van-switch v-model="lists1.shwddlsqk" />--></van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.jnpfbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.jnpfbz)'> {{lists1.jnpfbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -110,8 +100,10 @@
               <van-row>
                 <van-col span="24">
                   <van-row>
-                    <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.shwddwh}}</van-col>
+                    <van-col span="8" >文号</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.shwddwh)'> {{lists1.shwddwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -119,7 +111,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.shwddbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.shwddbz)'> {{lists1.shwddbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -130,8 +124,10 @@
               <van-row>
                 <van-col span="24">
                   <van-row>
-                    <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.kypfwh}}</van-col>
+                    <van-col span="8" >文号</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.kypfwh)'>{{lists1.kypfwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -139,7 +135,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.kypfbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.kypfbz)'> {{lists1.kypfbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -151,7 +149,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists1.xmzjjhwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.xmzjjhwh)'>{{lists1.xmzjjhwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -159,7 +159,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists1.xmzjjhbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists1.xmzjjhbz)'>{{lists1.xmzjjhbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -173,7 +175,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists2.yhdkwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists2.yhdkwh)'> {{lists2.yhdkwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -181,7 +185,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists2.yhdkbz}}</van-col>
+                    <van-col span="16">
+                      <span  @click='popupClick(lists2.yhdkbz)'>{{lists2.yhdkbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -194,8 +200,10 @@
               <van-row>
                 <van-col span="24">
                   <van-row>
-                    <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists3.cbsjpfwh}}</van-col>
+                    <van-col span="8" >文号</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists3.cbsjpfwh)'> {{lists3.cbsjpfwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -203,7 +211,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists2.cbsjpfbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists3.cbsjpfbz)'>{{lists3.cbsjpfbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -217,7 +227,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.jxgshbwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.jxgshbwh)'>{{lists4.jxgshbwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -225,7 +237,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.jxgshbbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.jxgshbbz)'>{{lists4.jxgshbbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -237,7 +251,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.xmfrwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.xmfrwh)'> {{lists4.xmfrwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -245,7 +261,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.xmfrbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.xmfrbz)'>{{lists4.xmfrbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -257,7 +275,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.jsydwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.jsydwh)'>{{lists4.jsydwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -265,7 +285,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.jsydbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.jsydbz)'> {{lists4.jsydbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -277,7 +299,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.ysjdwwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.ysjdwwh)'>{{lists4.ysjdwwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -285,7 +309,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.ysjdwbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.ysjdwbz)'>{{lists4.ysjdwbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -297,7 +323,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.sgtshwcwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.sgtshwcwh)'>{{lists4.sgtshwcwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -305,7 +333,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.sgtshwcbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.sgtshwcbz)'> {{lists4.sgtshwcbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -317,7 +347,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.sgtyshdwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.sgtyshdwh)'> {{lists4.sgtyshdwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -325,7 +357,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.sgtyshdbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.sgtyshdbz)'>{{lists4.sgtyshdbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -337,7 +371,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.szdgbzwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.szdgbzwh)'>{{lists4.szdgbzwh}}</span>
+                      </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -345,7 +381,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.szdgbzbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.szdgbzbz)'> {{lists4.szdgbzbz}}</span>
+                     </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -357,7 +395,9 @@
                 <van-col span="24">
                   <van-row>
                     <van-col span="8">文号</van-col>
-                    <van-col span="16">{{lists4.ztgcwh}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.ztgcwh)'> {{lists4.ztgcwh}}</span>
+                     </van-col>
                   </van-row>
                   <van-row>
                     <van-col span="8">落实情况</van-col>
@@ -365,7 +405,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">{{lists4.ztgcbz}}</van-col>
+                    <van-col span="16" >
+                      <span @click='popupClick(lists4.ztgcbz)'>{{lists4.ztgcbz}}</span>
+                      </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -374,6 +416,13 @@
           </div>
         </van-col>
       </van-row>
+
+      <!--弹出层-->
+      <mt-popup
+        v-model="popupVisible"
+        popup-transition="popup-fade">
+        <p>{{popupTxt}}</p>
+      </mt-popup>
     </div>
   </div>
 </template>
@@ -407,7 +456,9 @@
         lists1:{},
         lists2:{},
         lists3:{},
-        lists4:{}
+        lists4:{},
+        popupTxt:'',
+        popupVisible:false
       }
     },
     components:{
@@ -430,12 +481,25 @@
 //      this.getPartFourData();
     },
     methods:{
+      popupClick(txt){
+        this.popupTxt =txt;
+        if(txt==''||txt==null||txt==undefined){
+          this.popupVisible = false;
+        }else {
+          this.popupVisible = true;
+        }
+      },
+
       //  关闭应用程序。调取JSAPI,关闭应用程序
       onClickRight(){
         RPM.closeApplication();
       },
 
       onClickLeft(){
+        this.lists1={};
+        this.lists2={};
+        this.lists3={};
+        this.lists4={};
         this.$router.push({path: '/implementation/index'});
       },
       showPart(num){
@@ -550,6 +614,7 @@
   }
 </script>
 <style scoped>
+
   /* 内容区域 */
   .content{
     width:100%;
@@ -583,9 +648,12 @@
     top:46px;
   }
   .van-row{
-    border:1px solid #ccc;
     border-bottom:none;
     margin:-1px;
+    border-right:0px;
+    border-left:0px;
+    border-top:1px solid #ccc;
+    border-bottom:0px;
   }
   .van-col{
     border-bottom:1px solid #ccc;
@@ -600,6 +668,8 @@
     height:39px;
     margin-bottom:-1px;
     padding: 0 5px;
+    border-right:0px;
+    border-bottom:0px;
   }
   .van-switch{
     margin-top:4px;

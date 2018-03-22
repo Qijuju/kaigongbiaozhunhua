@@ -101,6 +101,14 @@
   }
 }
 /*标段详情下的按钮的样式 end */
+/* 弹出层*/
+.mint-popup{
+  width:90%;
+  font-size:20px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+}
 
 
 

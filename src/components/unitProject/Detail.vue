@@ -169,6 +169,8 @@
       },
       // 返回单位工程首页
       onClickLeft(){
+        // 清空数据
+        this.detailData={};
         this.$router.push({path:'/unitProject'});
       },
       popupClick(popupTxt){

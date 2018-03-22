@@ -1,6 +1,6 @@
 <template>
   <div class="projectIndex">
-    <!--<Header title="项目工程开工标准化"></Header>-->
+
     <van-nav-bar title="项目工程开工标准化"  right-text="关闭"  @click-right="onClickRight" fixed></van-nav-bar>
 
     <div class="content">

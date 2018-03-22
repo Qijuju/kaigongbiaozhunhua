@@ -148,6 +148,8 @@
       },
 
       onClickLeft(){
+        // 清空数据
+        this.detailData={};
         this.$router.push({path:'/section'});
       },
       popupClick(txt){

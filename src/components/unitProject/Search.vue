@@ -177,6 +177,7 @@
         this.htbd = value;
         this.htbdId= this.htbdArr[index].id;
         this.htbdIsShow =false;
+        this.getDWGCDict();
 //        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
       //  确认单位工程
@@ -184,7 +185,7 @@
         this.dwgc = value;
         this.dwgcId= this.dwgcArr[index].id;
         this.dwgcIsShow =false;
-        this.getDWGCDict();
+
 //        console.log(`单位工程当前值：${value}, 当前索引：${index}`);
       },
       // 选择器：取消调取方法,隐藏选项框

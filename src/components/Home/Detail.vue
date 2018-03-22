@@ -20,7 +20,7 @@
       },
       watch: {
         $route: function (to, from) {
-          console.log("watch函数............")
+          console.log("watch函数............");
           if(to.path==='/Home/detail'){
             var data = to.query;
             this.url=data.url
@@ -28,7 +28,7 @@
         }
       },
       activated: function() {
-        $($('.van-tabbar--fixed')[0]).css({
+        $($('.mint-tabbar.is-fixed')[0]).css({
           'bottom':'-50px'
         })
       },
@@ -43,7 +43,7 @@
           this.$router.push({path: '/Home'});
 
           // 修改tabbar的定位
-          $($('.van-tabbar--fixed')[0]).css({
+          $($('.mint-tabbar.is-fixed')[0]).css({
             'bottom':'0px'
           })
         },
