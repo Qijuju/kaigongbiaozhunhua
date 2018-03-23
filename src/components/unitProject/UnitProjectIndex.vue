@@ -103,7 +103,7 @@
           this.dwgcId='';
           this.xmgljgId='';
           this.xmmcId='';
-          console.log("单位--2")
+
         }
       },
     },
