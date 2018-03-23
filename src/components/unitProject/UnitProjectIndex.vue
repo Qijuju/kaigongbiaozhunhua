@@ -72,18 +72,20 @@
         vm.htbdSearchCondId = vm.$store.state.sectionInfo.htbdSearchCondId;
 
         // 获取新的搜索条件之后重新请求数据
-        vm.getList();
+//        vm.getList();
         return vm.xmjgglSearchCondId;
       }
     },
-    mounted:function () {
+    activated:function () {
       this.getList(); // 获取列表数据
     },
     watch: {
       $route: function (to, from) {
-        console.log("watch............")
+        console.log("单位watch............");
 
         if(to.path=='/unitProject'){
+          console.log("单位--1")
+
           var data = to.query;
 
           if(!this.isEmptyObject(data)){
@@ -96,6 +98,12 @@
             this.lists=[];
             this.getList();// 重新获取首页数据
           }
+        }else {
+          this.htbdId='';
+          this.dwgcId='';
+          this.xmgljgId='';
+          this.xmmcId='';
+          console.log("单位--2")
         }
       },
     },
@@ -113,6 +121,7 @@
       },
       // 获取首页数据
       getList(){
+        console.log('121212');
         let vm=this;
         vm.page=1;
         // 函数调用，获取请求的url

@@ -537,7 +537,6 @@
           vm.lists1.kypflsqk = vm.lists1.kypflsqk == '1'?true:false;
           vm.lists1.xmzjjhlsqk = vm.lists1.xmzjjhlsqk == '1'?true:false;
 
-          console.log("111-获取详情页免得数据源："+JSON.stringify(this.lists1));
         }).catch(err => {
           console.error(err.message)
         })

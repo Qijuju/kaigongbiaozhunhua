@@ -154,6 +154,11 @@
         };
 
         this.$router.push({path: '/unitProject', query: query});
+
+        this.xmgljg='';
+        this.xmmc='';
+        this.htbd='';
+        this.dwgc='';
       },
       // 确认项目管理机构
       onXMGLLGConfirm(value, index) {
@@ -174,19 +179,43 @@
       },
       // 确认合同标段
       onHTBDConfirm(value, index) {
+
         this.htbd = value;
-        this.htbdId= this.htbdArr[index].id;
         this.htbdIsShow =false;
+
+        var i =index-1;
+
+        if(index===0){
+          console.log("下标==0" +index);
+          this.htbdId='';
+        }else {
+          console.log("下标！=0：" + index);
+          this.htbdId= this.htbdArr[i].id;// 获取选中项的id
+        }
+
+        console.log("玄功的标段为：" + value +':' + index+';id== '+ this.htbdId);
+
         this.getDWGCDict();
+
 //        console.log(`项目名称当前值：${value}, 当前索引：${index}`);
       },
       //  确认单位工程
       onDWGCConfirm(value,index){
         this.dwgc = value;
-        this.dwgcId= this.dwgcArr[index].id;
         this.dwgcIsShow =false;
 
-//        console.log(`单位工程当前值：${value}, 当前索引：${index}`);
+        var i =index-1;
+
+        if(index===0){
+          console.log("下标==0" +index);
+          this.dwgcId='';
+        }else {
+          console.log("下标！=0：" + index);
+          this.dwgcId= this.dwgcArr[i].id;// 获取选中项的id
+        }
+
+
+        console.log(`单位工程当前值：${value}, 当前索引：${index},当前的id：${this.dwgcId}` );
       },
       // 选择器：取消调取方法,隐藏选项框
       onCancel() {
@@ -226,6 +255,12 @@
         axios.get(url)
           .then(response => {
             this.xmgljgArr = response.data;
+
+            var obj={};
+            obj.id='';
+            obj.subcompanyname='全部';
+            vm.xmgljgArr.unshift(obj);
+
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].subcompanyname)
@@ -243,6 +278,12 @@
         axios.get(url)
           .then(response => {
             this.xmmcArr = response.data;
+
+            var obj={};
+            obj.id='';
+            obj.xmmc='全部';
+            vm.xmmcArr.unshift(obj);
+
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].xmmc)
@@ -265,6 +306,10 @@
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].bdmc)
             }
+
+            // 追加全部字段
+            temp.unshift('全部');
+
             this.htbdNameArr = temp;
 
           }).catch(err => {
@@ -276,13 +321,20 @@
         let vm=this;
         let url='http://tljjgxt.r93535.com/DanweiServlet?bdid='+vm.htbdId+'&xmmcid='+vm.xmmcId+'&xmgljg='+vm.xmgljgId+'&baseuserid='+vm._GLOBAL.baseUserId;
 
+        console.log("单位工程字典--url:"+url);
+
         axios.get(url)
           .then(response => {
             this.dwgcArr = response.data;
+
+            console.log("单位工程字典--1:"+JSON.stringify(this.dwgcArr));
+
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].dwgc)
             }
+            // 追加全部字段
+            temp.unshift('全部');
             this.dwgcNameArr = temp;
           }).catch(err => {
           console.error(err.message)

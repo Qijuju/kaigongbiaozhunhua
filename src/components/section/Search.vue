@@ -108,8 +108,8 @@
     },
     mounted:function () {
       this.getXMGLLGDict();
-//      this.getXMMCDict();
-//      this.getHTBDDict();
+      this.getXMMCDict();
+      this.getHTBDDict();
     },
 
     methods:{
@@ -124,6 +124,11 @@
         };
 
         this.$router.push({path:'/section',query: query});
+
+        this.htbd='';
+        this.xmmc='';
+        this.xmgljg='';
+
       },
       // 项目管理机构
       onXMGLJGConfirm(value, index) {
@@ -146,8 +151,20 @@
       // 选择器：确认调取方法：项目名称
       onHTBDConfirm(value,index) {
         this.htbd = value;
-        this.htbdId= this.htbdArr[index].id;// 获取选中项的id
         this.htbdIsShow =false;
+        var i =index-1;
+
+        if(index===0){
+          console.log("下标==0" +index);
+          this.htbdId='';
+        }else {
+          console.log("下标！=0：" + index);
+          this.htbdId= this.htbdArr[i].id;// 获取选中项的id
+        }
+
+        console.log("玄功的标段为：" + value +':' + index+';id== '+ this.htbdId);
+
+
       },
       // 选择器：取消调取方法,隐藏选项框
       onCancel() {
@@ -178,7 +195,15 @@
         axios.get(url)
           .then(response => {
             vm.xmgljgArr = response.data;
-            console.log("项目字典数据:"+JSON.stringify(vm.xmgljgArr));
+
+//            [{"id":"8","subcompanyname":"武汉工程建设指挥部"}]
+            // 往字段数据中追加’全部‘字段
+            console.log("项目管理机构字典数据追加前:"+JSON.stringify(vm.xmgljgArr));
+            var obj={};
+            obj.id='';
+            obj.subcompanyname='全部';
+            vm.xmgljgArr.unshift(obj);
+            console.log("项目管理机构字典数据-追加后:"+JSON.stringify(vm.xmgljgArr));
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].subcompanyname)
@@ -198,6 +223,11 @@
         axios.get(url)
           .then(response => {
             vm.xmmcArr = response.data;
+
+            var obj={};
+            obj.id='';
+            obj.xmmc='全部';
+            vm.xmmcArr.unshift(obj);
             console.log("项目字典数据:"+JSON.stringify(vm.xmmcArr));
             var temp =[];
             for(var i=0;i<response.data.length;i++){
@@ -219,11 +249,22 @@
         axios.get(url)
           .then(response => {
             vm.htbdArr = response.data;
+
+
+//            var obj={};
+//            obj.id='';
+//            obj.xmmc='全部';
+//            vm.xmmcArr.unshift(obj);
+            console.log("合同标段字典:"+JSON.stringify(vm.htbdArr));
+
             var temp =[];
             for(var i=0;i<response.data.length;i++){
               temp.push(response.data[i].bdmc)
             }
+            // 追加全部字段
+            temp.unshift('全部');
             this.htbdNameArr = temp;
+
           }).catch(err => {
           console.error(err.message)
         })

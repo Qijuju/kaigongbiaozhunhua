@@ -57,26 +57,33 @@
         xmgljgId:'',
       }
     },
-    mounted:function () {
+    activated:function () {
       this.getSectionList(); // 获取列表数据
     },
     watch: {
       $route: function (to, from) {
-        console.log("watch函数............")
+        console.log("标段watch函数............")
 
-        if(to.path=='/section'){
+        if(to.path==='/section'){
+          console.log("标段---1");
           var data = to.query;
           console.log("ids:"+JSON.stringify(data));
 
           if(!this.isEmptyObject(data)){
-            this.xmmcId=data.xmmcId
-            this.bdId=data.htbdId
-            this.xmgljgId=data.xmgljgId
+            this.xmmcId=data.xmmcId;
+            this.bdId=data.htbdId;
+            this.xmgljgId=data.xmgljgId;
 
             this.page=1
             this.lists=[]
             this.getSectionList();// 重新获取首页数据
           }
+        } else {
+          console.log("标段---2");
+          this.xmmcId='';
+          this.bdId='';
+          this.xmgljgId='';
+
         }
       },
     },
