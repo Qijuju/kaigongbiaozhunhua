@@ -142,7 +142,7 @@
         return this.dwgcId;
       }
     },
-    mounted:function () {
+    activated:function () {
       this.dwgcId  = this.$store.getters.unitProjectInfo.dwgcId;
       this.getDetailData();
     },

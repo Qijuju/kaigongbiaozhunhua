@@ -200,6 +200,7 @@
       },
       // 跳转详情页面
       goDetail(id){
+        console.log('点击的id：'+id);
         this.$store.commit('setSectionInfo',{id:id});  // 存储数据
         this.$router.push({path:'/section/detail'}); // 跳转路由
       }

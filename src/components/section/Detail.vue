@@ -138,7 +138,7 @@
         return this.id;
       }
     },
-    mounted:function () {
+    activated:function () {
       this.getDetailData();
     },
     methods:{
@@ -161,6 +161,7 @@
       },
       // 根据标段id获取详情页数据
       getDetailData(){
+
         let vm = this;
         let url='http://tljjgxt.r93535.com/BdgckgbzhServlet?bdid='+vm.id+'&type='+vm.type;
         console.log("请求标段详情数据第一页数据的url："+url);

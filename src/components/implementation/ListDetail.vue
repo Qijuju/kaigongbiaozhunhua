@@ -417,14 +417,17 @@
         </van-col>
       </van-row>
 
-      <!--弹出层-->
-      <mt-popup
-        v-model="popupVisible"
-        popup-transition="popup-fade">
-        <p>{{popupTxt}}</p>
-      </mt-popup>
+
     </div>
+
+    <!--弹出层-->
+    <mt-popup
+      v-model="popupVisible"
+      popup-transition="popup-fade">
+      <p>{{popupTxt}}</p>
+    </mt-popup>
   </div>
+
 </template>
 
 <script>
@@ -476,6 +479,17 @@
     },
     mounted:function () {
       this.getPartOneData();
+
+      let _this=this;
+      $($('.van-nav-bar__title')[0]).click(function () {
+        console.log('绑定的点击事件触发了');
+
+        _this.popupVisible=true;
+        console.log('popupVisible===' + _this.popupVisible);
+        console.log('popupTxt===' + $(this).html());
+        _this.popupTxt = $(this).html();
+
+      })
 //      this.getPartTwoData();
 //      this.getPartThreeData();
 //      this.getPartFourData();

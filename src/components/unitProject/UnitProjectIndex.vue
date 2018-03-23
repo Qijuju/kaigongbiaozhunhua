@@ -84,8 +84,6 @@
         console.log("单位watch............");
 
         if(to.path=='/unitProject'){
-          console.log("单位--1")
-
           var data = to.query;
 
           if(!this.isEmptyObject(data)){
