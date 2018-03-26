@@ -30,7 +30,7 @@
       return{
         baseuserid:102300,
         page:1,
-        lists:[{'xmmc':'测试项目名称一','id':1},{'xmmc':'测试项目名称二','id':2},{'xmmc':'测试项目名称三','id':3}]
+        lists:[]
       }
     },
     mounted:function () {

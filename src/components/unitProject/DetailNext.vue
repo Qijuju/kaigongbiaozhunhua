@@ -394,7 +394,7 @@
     width:100%;
     height:40px;
     line-height:40px;
-    text-align: left;
+    text-align: center;
     padding: 0 10px;
     background: #E5F2FA;
     font-weight: 600;

@@ -8,14 +8,23 @@
     >
     </van-nav-bar>
 
+    <!-- 重写下拉菜单样式-->
+    <div class="tend-select" name="nice-select" v-on:click="showClick">
+      <span value="fourWord" class="classify" v-text="headData[selected].value"></span>
+      <ul style="display: none;" v-show="show" >
+        <li @click="showPart(optionIndex,$event)" v-for="(option, optionIndex) in headData" >{{option.value}}</li>
+      </ul>
+    </div>
+
+    <!--<select v-model="selected" @change="showPart(selected)" style="width: 100%;height:35px;position: fixed;top:46px;left: 0px;border-color: #ccc;outline-color: #ccc;">-->
+      <!--<option v-for="(item,index) in headData" :value="index" style="border-color: #ccc;outline-color: #ccc;">-->
+        <!--{{ item.value }}-->
+      <!--</option>-->
+    <!--</select>-->
+
     <!--内容区域-->
     <div class="content">
 
-      <select v-model="selected" @change="showPart(selected)" style="width: 100%;height:35px;">
-        <option v-for="(item,index) in headData" :value="index">
-          {{ item.value }}
-        </option>
-      </select>
       <van-row>
         <van-col span="24">
           <div class="main">
@@ -185,9 +194,9 @@
                   </van-row>
                   <van-row>
                     <van-col span="8">备注</van-col>
-                    <van-col span="16">
+                    <van-col span="16" style="border-bottom: 1px solid #ccc;height: 40px;">
                       <span  @click='popupClick(lists2.yhdkbz)'>{{lists2.yhdkbz}}</span>
-                      </van-col>
+                    </van-col>
                   </van-row>
                 </van-col>
               </van-row>
@@ -209,9 +218,9 @@
                     <van-col span="8">落实情况</van-col>
                     <van-col span="16"> <span v-html="mySwitch(lists3.cbsjpflsqk)"/><!--<van-switch v-model="lists3.cbsjpflsqk" />--></van-col>
                   </van-row>
-                  <van-row>
+                  <van-row >
                     <van-col span="8">备注</van-col>
-                    <van-col span="16" >
+                    <van-col span="16" style="border-bottom: 1px solid #ccc;height: 40px;">
                       <span @click='popupClick(lists3.cbsjpfbz)'>{{lists3.cbsjpfbz}}</span>
                       </van-col>
                   </van-row>
@@ -439,7 +448,7 @@
     name: "listDetail",
     data(){
       return{
-        showPicker:false,
+        show:false,
         mytab:'统计处',
         tabs:['统计处','财务处','总工程师室','建设处'],
         headData: [{
@@ -451,7 +460,6 @@
         },{
           value: '建设处'
         }],
-//        selected: '',
         xmmc:'',
         xmid:'',
         selected:0,
@@ -490,9 +498,6 @@
         _this.popupTxt = $(this).html();
 
       })
-//      this.getPartTwoData();
-//      this.getPartThreeData();
-//      this.getPartFourData();
     },
     methods:{
       popupClick(txt){
@@ -516,7 +521,11 @@
         this.lists4={};
         this.$router.push({path: '/implementation/index'});
       },
-      showPart(num){
+      showPart(num,e){
+        var el =e.currentTarget;
+
+        this.selected =num;
+        console.log("下拉选项框：" + num);
         switch (num){
           case 0:
             this.getPartOneData(0);
@@ -533,8 +542,13 @@
           default:
             break;
         }
-        // $($('.tab')[num]).addClass('bg').siblings().removeClass('bg');
         $($('.showHide')[num]).show().siblings().hide();
+        // 设置点击的样式
+        $(el).css({
+          'background':'#E5F2FA'
+        }).siblings().css({
+          'background':'#fff'
+        });
       },
       // 获取列表数据
       getPartOneData(xmid){
@@ -615,8 +629,8 @@
           return '-'
         }
       },
-      isShowPicker(){
-        this.showPicker=!this.showPicker
+      showClick(){
+        this.show=!this.show
       },
       onChange(picker, value, index) {
         this.mytab=value
@@ -627,14 +641,54 @@
   }
 </script>
 <style scoped>
+  /* 下拉框 重写 start */
+  .tend-select{
+    position: fixed;
+    top:45px;
+    left:0px;
+    border:1px solid #ccc;
+    width:100%;
+    height:40px;
+    line-height:40px;
+    background-color: #fff;
+  }
+  .tend-select>span.classify{
+    display: inline-block;
+    width:100%;
+    height:100%;
+    line-height:40px;
+    padding-left:10px;
+    background-color: #fff;
+
+  }
+  .tend-select >ul{
+    background: #fff;
+    margin-top:-2px;
+    border:1px solid #0087e8;
+  }
+  .tend-select >ul>li{
+    width:100%;
+    height:30px;
+    line-height:30px;
+    padding-left:10px;
+    background-color: #fff;
+  }
+  .tend-select >ul>li:nth-child(1){
+    background: #E5F2FA;
+  }
+  /* 下拉框 重写 end */
+
+
 
   /* 内容区域 */
   .content{
     width:100%;
-    margin-top:46px;
+    margin-top:85px;
     margin-bottom:55px;
     overflow-y: auto;
     overflow-x:hidden;
+    padding-bottom:10px;
+
   }
   .tab{
     width:100%;
