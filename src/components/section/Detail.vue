@@ -9,7 +9,9 @@
     >
     </van-nav-bar>
     <div class="content">
-      <button id="nextPage" @click="goNextPage()">下一页</button>
+      <!--<button id="nextPage" @click="goNextPage()">下一页</button>-->
+      <div id="nextPage">下一页</div>'
+
       <van-row>
         <van-col span="8">合同标段</van-col>
         <van-col span="16" >
@@ -117,6 +119,58 @@
   import axios from 'axios';
   import Header from '../Common/Header'
 
+  window.onload=function(){
+
+    var flag = 0; //标记是拖曳还是点击
+    var oDiv = document.getElementById('nextPage');
+    var disX,moveX,L,T,starX,starY,starXEnd,starYEnd,moveY;
+    oDiv.addEventListener('touchstart',function(e){
+      flag = 0;
+      e.preventDefault();//阻止触摸时页面的滚动，缩放
+      disX = e.touches[0].clientX - this.offsetLeft;
+      disY = e.touches[0].clientY - this.offsetTop;
+      //手指按下时的坐标
+      starX = e.touches[0].clientX;
+      starY = e.touches[0].clientY;
+
+    });
+    oDiv.addEventListener('touchmove',function(e){
+      flag = 1;
+      L = e.touches[0].clientX - disX ;
+      T = e.touches[0].clientY - disY ;
+//移动时 当前位置与起始位置之间的差值
+      starXEnd = e.touches[0].clientX - starX;
+      starYEnd = e.touches[0].clientY - starY;
+//console.log(L);
+      if(L<0){//限制拖拽的X范围，不能拖出屏幕
+        L = 0;
+      }else if(L > document.documentElement.clientWidth - this.offsetWidth){
+        L=document.documentElement.clientWidth - this.offsetWidth;
+      }
+      if(T<0){//限制拖拽的Y范围，不能拖出屏幕
+        T=0;
+      }else if(T>document.documentElement.clientHeight - this.offsetHeight){
+        T = document.documentElement.clientHeight - this.offsetHeight;
+      }
+      moveX = L + 'px';
+      moveY = T + 'px';
+
+      this.style.left = moveX;
+      this.style.top = moveY;
+    });
+    window.addEventListener('touchend',function(e){
+
+//判断滑动方向
+      if(flag === 0) {//点击
+        alert("点击跳转");
+//        this.$router.push({path:'/section/detailNext'});
+
+//              window.location.href='http://www.baidu.com';
+      }
+    });
+  }
+
+
   export default {
     name: "detail",
     data() {
@@ -140,6 +194,7 @@
     },
     activated:function () {
       this.getDetailData();
+      this.drag();
     },
     methods:{
       //  关闭应用程序。调取JSAPI,关闭应用程序
@@ -171,6 +226,9 @@
         }).catch(err => {
           console.error(err.message)
         })
+      },
+      drag(){
+
       }
     }
   }
@@ -183,17 +241,23 @@
     margin-bottom:55px;
   }
   #nextPage{
-    position: fixed;
-    top:50%;
-    right:0px;
-    width:30px;
-    padding:5px;
-    background: rgba(0,0,0,.5);
+    width: 100px;
+    height: 100px;
+    position:fixed;
+    background-color: rgba(62, 255, 146, 0.5);
+    border-radius:25px;
     color: #fff;
-    border:none;
-    -webkit-border-radius: 4px 0 0 4px;
-    -moz-border-radius: 4px 0 0 4px;
-    border-radius: 4px 0 0 4px;
+    /*position: fixed;*/
+    /*top:50%;*/
+    /*right:0px;*/
+    /*width:30px;*/
+    /*padding:5px;*/
+    /*background: rgba(0,0,0,.5);*/
+    /*color: #fff;*/
+    /*border:none;*/
+    /*-webkit-border-radius: 4px 0 0 4px;*/
+    /*-moz-border-radius: 4px 0 0 4px;*/
+    /*border-radius: 4px 0 0 4px;*/
   }
   /* popup */
   .mint-popup{
